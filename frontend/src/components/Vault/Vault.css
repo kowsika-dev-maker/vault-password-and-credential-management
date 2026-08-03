@@ -1,0 +1,46 @@
+.vault-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    background:#f4f4f4;
+}
+
+.vault-box{
+    width:420px;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+.vault-box h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.vault-box form{
+    display:flex;
+    flex-direction:column;
+}
+
+.vault-box input{
+    padding:12px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+.vault-box button{
+    padding:12px;
+    background:#2e7d32;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.vault-box button:hover{
+    background:#1b5e20;
+}

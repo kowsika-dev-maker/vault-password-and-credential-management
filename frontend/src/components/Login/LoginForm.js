@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import API from "../../services/api";
 import "./LoginForm.css";
 
@@ -9,6 +9,8 @@ function LoginForm() {
         email: "",
         password: ""
     });
+
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData({
@@ -23,13 +25,33 @@ function LoginForm() {
 
         try {
 
-            const response = await API.post("/login", formData);
+            const response = await API.post("/auth/login", formData);
 
-            alert(response.data);
+            if (response.data.message === "Login Successful") {
+
+                // Save JWT Token
+                localStorage.setItem("token", response.data.token);
+
+                // Save Logged-in Email
+                localStorage.setItem("email", formData.email);
+
+                alert("Login Successful");
+
+                navigate("/dashboard");
+
+            } else {
+
+                alert(response.data.message);
+
+            }
 
         } catch (error) {
 
-            alert("Login Failed");
+            if (error.response) {
+                alert(error.response.data.message || "Login Failed");
+            } else {
+                alert("Server Error");
+            }
 
         }
 
@@ -39,40 +61,52 @@ function LoginForm() {
 
         <div className="login-container">
 
-            <h2>Login</h2>
+            <div className="login-box">
 
-            <form onSubmit={handleSubmit}>
+                <h1>SecureVault</h1>
 
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                />
+                <h2>Login</h2>
 
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                />
+                <form onSubmit={handleSubmit}>
 
-                <button type="submit">
-                    Login
-                </button>
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter Email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                    />
 
-            </form>
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Enter Password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                    />
 
-            <p>
-                Don't have an account?
-                <Link to="/register">
-                    Register
-                </Link>
-            </p>
+                    <button type="submit">
+                        Login
+                    </button>
+
+                </form>
+
+                <p className="forgot-password">
+                    <Link to="/forgot-password">
+                        Forgot Password?
+                    </Link>
+                </p>
+
+                <p className="register-text">
+                    Don't have an account?
+                    <Link to="/register">
+                        {" "}Register
+                    </Link>
+                </p>
+
+            </div>
 
         </div>
 

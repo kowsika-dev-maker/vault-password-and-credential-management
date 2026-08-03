@@ -1,6 +1,7 @@
 package com.securevault.backend.entity;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
@@ -16,6 +17,11 @@ public class User {
     private String email;
 
     private String password;
+
+    // Forgot Password Fields
+    private String otp;
+
+    private LocalDateTime otpExpiry;
 
     public User() {
     }
@@ -50,5 +56,23 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    // OTP Getter & Setter
+
+    public String getOtp() {
+        return otp;
+    }
+
+    public void setOtp(String otp) {
+        this.otp = otp;
+    }
+
+    public LocalDateTime getOtpExpiry() {
+        return otpExpiry;
+    }
+
+    public void setOtpExpiry(LocalDateTime otpExpiry) {
+        this.otpExpiry = otpExpiry;
     }
 }

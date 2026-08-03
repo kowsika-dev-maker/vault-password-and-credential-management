@@ -26,7 +26,7 @@ function RegisterForm() {
 
         try {
 
-            const response = await API.post("/register", formData);
+            const response = await API.post("/auth/register", formData);
 
             alert(response.data);
 
