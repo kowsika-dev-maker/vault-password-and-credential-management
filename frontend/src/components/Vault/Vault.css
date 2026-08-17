@@ -33,7 +33,7 @@
 
 .vault-box button{
     padding:12px;
-    background:#2e7d32;
+    background:#582386;
     color:white;
     border:none;
     border-radius:5px;
@@ -42,5 +42,5 @@
 }
 
 .vault-box button:hover{
-    background:#1b5e20;
+    background:#8728bf;
 }

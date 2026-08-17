@@ -1,88 +1,396 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
 }
 
-body{
-    background:#0f0f0f;
+body {
+    background: #ffffff;
 }
 
-.login-container{
-    width:100%;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:#0f0f0f;
+
+/* =========================================================
+   LOGIN CONTAINER
+========================================================= */
+
+.login-container {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+    overflow: hidden;
+
+    padding: 20px;
+
+    background: #ffffff;
 }
 
-.login-box{
-    width:450px;
-    padding:45px;
-    background:#1d1d1d;
-    border-radius:18px;
-    box-shadow:0 0 25px rgba(0,0,0,.6);
+
+/* =========================================================
+   DECORATIVE PURPLE BACKGROUND
+========================================================= */
+
+.login-container::before {
+    content: "";
+
+    position: absolute;
+
+    width: 450px;
+    height: 450px;
+
+    top: -220px;
+    left: -180px;
+
+    border-radius: 50%;
+
+    background: rgba(124, 58, 237, 0.10);
+
+    filter: blur(90px);
+
+    pointer-events: none;
 }
 
-.login-box h1{
-    text-align:center;
-    color:#00d084;
-    font-size:35px;
-    margin-bottom:8px;
+
+.login-container::after {
+    content: "";
+
+    position: absolute;
+
+    width: 400px;
+    height: 400px;
+
+    bottom: -220px;
+    right: -160px;
+
+    border-radius: 50%;
+
+    background: rgba(168, 85, 247, 0.10);
+
+    filter: blur(90px);
+
+    pointer-events: none;
 }
 
-.login-box h2{
-    text-align:center;
-    color:white;
-    margin-bottom:30px;
+
+/* =========================================================
+   LOGIN BOX
+========================================================= */
+
+.login-box {
+    position: relative;
+    z-index: 2;
+
+    width: 450px;
+
+    padding: 45px;
+
+    background: #ffffff;
+
+    border: 1px solid #e8e1f2;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 20px 60px rgba(45, 25, 70, 0.12),
+        0 5px 20px rgba(124, 58, 237, 0.06);
+
+    animation: loginAppear 0.6s ease;
 }
 
-.login-box form{
-    display:flex;
-    flex-direction:column;
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+@keyframes loginAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
-.login-box input{
-    width:100%;
-    padding:18px;
-    margin-bottom:20px;
-    border:none;
-    border-radius:10px;
-    background:#2b2b2b;
-    color:white;
-    font-size:17px;
+
+/* =========================================================
+   SECUREVAULT TITLE
+========================================================= */
+
+.login-box h1 {
+    text-align: center;
+
+    color: #7c3aed;
+
+    font-size: 38px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 8px;
 }
 
-.login-box input::placeholder{
-    color:#bdbdbd;
+
+/* =========================================================
+   LOGIN SUBTITLE
+========================================================= */
+
+.login-box h2 {
+    text-align: center;
+
+    color: #27212f;
+
+    font-size: 23px;
+
+    font-weight: 600;
+
+    margin-bottom: 32px;
 }
 
-.login-box button{
-    width:100%;
-    padding:18px;
-    background:#00d084;
-    color:white;
-    font-size:18px;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
-    transition:.3s;
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.login-box form {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 2px;
 }
 
-.login-box button:hover{
-    background:#00a56d;
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.login-box input {
+    width: 100%;
+
+    padding: 17px 18px;
+
+    margin-bottom: 18px;
+
+    border: 1px solid #ddd5e7;
+
+    border-radius: 11px;
+
+    background: #faf9fc;
+
+    color: #211a28;
+
+    font-size: 16px;
+
+    outline: none;
+
+    transition:
+        border 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease,
+        transform 0.25s ease;
 }
 
-.register-text{
-    margin-top:25px;
-    text-align:center;
-    color:white;
+
+/* Placeholder */
+
+.login-box input::placeholder {
+    color: #928a9d;
 }
 
-.register-text a{
-    color:#00d084;
-    text-decoration:none;
-    font-weight:bold;
+
+/* Input hover */
+
+.login-box input:hover {
+    border-color: #b9a5d0;
+}
+
+
+/* Input focus */
+
+.login-box input:focus {
+
+    border-color: #8b5cf6;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(124, 58, 237, 0.10),
+        0 0 15px rgba(124, 58, 237, 0.08);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+========================================================= */
+
+.login-box button {
+
+    width: 100%;
+
+    padding: 17px;
+
+    margin-top: 5px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    cursor: pointer;
+
+    color: #ffffff;
+
+    font-size: 17px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.3px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #9333ea
+        );
+
+    box-shadow:
+        0 8px 20px rgba(124, 58, 237, 0.20);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+
+/* Button hover */
+
+.login-box button:hover {
+
+    background:
+        linear-gradient(
+            135deg,
+            #8b5cf6,
+            #a855f7
+        );
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 28px rgba(124, 58, 237, 0.30);
+}
+
+
+/* Button click */
+
+.login-box button:active {
+
+    transform: translateY(0);
+
+    box-shadow:
+        0 5px 12px rgba(124, 58, 237, 0.18);
+}
+
+
+/* =========================================================
+   REGISTER TEXT
+========================================================= */
+
+.register-text {
+
+    margin-top: 25px;
+
+    text-align: center;
+
+    color: #77717f;
+
+    font-size: 15px;
+}
+
+
+/* Register link */
+
+.register-text a {
+
+    color: #7c3aed;
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    margin-left: 5px;
+
+    transition:
+        color 0.2s ease,
+        text-shadow 0.2s ease;
+}
+
+
+/* Register link hover */
+
+.register-text a:hover {
+
+    color: #9333ea;
+
+    text-shadow:
+        0 0 10px rgba(124, 58, 237, 0.25);
+}
+
+
+/* =========================================================
+   RESPONSIVE DESIGN
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .login-container {
+        padding: 20px;
+    }
+
+
+    .login-box {
+
+        width: 100%;
+
+        max-width: 450px;
+
+        padding: 35px 25px;
+
+        border-radius: 18px;
+    }
+
+
+    .login-box h1 {
+        font-size: 32px;
+    }
+
+
+    .login-box h2 {
+        font-size: 20px;
+    }
+
+
+    .login-box input {
+        padding: 15px;
+    }
+
+
+    .login-box button {
+        padding: 15px;
+    }
 }

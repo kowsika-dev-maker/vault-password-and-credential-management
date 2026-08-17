@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import API from "../../services/api";
 import "./ResetPassword.css";
 
 function ResetPassword() {
 
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
-        email: "",
+        email: localStorage.getItem("resetEmail") || "",
         otp: "",
         newPassword: ""
     });
@@ -26,13 +28,40 @@ function ResetPassword() {
 
         try {
 
-            const response = await API.post("/reset-password", formData);
+            const response = await API.post(
+                "/auth/reset-password",
+                formData
+            );
 
             alert(response.data);
 
+            if (response.data === "Password Reset Successful") {
+
+                localStorage.removeItem("resetEmail");
+
+                navigate("/");
+            }
+
         } catch (error) {
 
-            alert("Password Reset Failed");
+            console.log("Reset Password Error:", error);
+
+            if (error.response) {
+
+                console.log("Status:", error.response.status);
+                console.log("Data:", error.response.data);
+
+                alert(
+                    error.response.data.message ||
+                    error.response.data ||
+                    "Password Reset Failed"
+                );
+
+            } else {
+
+                alert("Unable to connect to server");
+
+            }
 
         }
 
@@ -84,9 +113,11 @@ function ResetPassword() {
                 </form>
 
                 <p className="back-login">
+
                     <Link to="/">
                         Back to Login
                     </Link>
+
                 </p>
 
             </div>

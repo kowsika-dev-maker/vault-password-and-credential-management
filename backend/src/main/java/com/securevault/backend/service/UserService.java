@@ -1,18 +1,19 @@
 package com.securevault.backend.service;
 
+import java.time.LocalDateTime;
+import java.util.Random;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import com.securevault.backend.dto.ForgotPasswordRequest;
 import com.securevault.backend.dto.LoginRequest;
 import com.securevault.backend.dto.LoginResponse;
 import com.securevault.backend.dto.RegisterRequest;
 import com.securevault.backend.dto.VerifyOtpRequest;
 import com.securevault.backend.entity.User;
+import com.securevault.backend.jwt.JwtUtil;
 import com.securevault.backend.repository.UserRepository;
-import com.securevault.backend.util.JwtUtil;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.util.Random;
 
 @Service
 public class UserService {

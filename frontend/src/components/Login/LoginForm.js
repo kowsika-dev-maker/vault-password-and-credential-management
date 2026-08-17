@@ -12,12 +12,16 @@ function LoginForm() {
 
     const navigate = useNavigate();
 
+
     const handleChange = (e) => {
+
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
         });
+
     };
+
 
     const handleSubmit = async (e) => {
 
@@ -25,37 +29,140 @@ function LoginForm() {
 
         try {
 
-            const response = await API.post("/auth/login", formData);
+            console.log("LOGIN REQUEST:", formData.email);
 
-            if (response.data.message === "Login Successful") {
+            const response =
+                await API.post(
+                    "/auth/login",
+                    formData
+                );
 
-                // Save JWT Token
-                localStorage.setItem("token", response.data.token);
+            console.log(
+                "LOGIN RESPONSE:",
+                response.data
+            );
 
-                // Save Logged-in Email
-                localStorage.setItem("email", formData.email);
 
-                alert("Login Successful");
+            /*
+             * Your backend should return:
+             *
+             * {
+             *   message: "Login Successful",
+             *   token: "JWT_TOKEN"
+             * }
+             */
+
+
+            if (
+                response.data &&
+                response.data.message ===
+                "Login Successful"
+            ) {
+
+                const token =
+                    response.data.token;
+
+
+                if (!token) {
+
+                    alert(
+                        "Login successful but JWT token was not received."
+                    );
+
+                    return;
+                }
+
+
+                // Save JWT
+                localStorage.setItem(
+                    "token",
+                    token
+                );
+
+
+                // Save logged-in user's email
+                localStorage.setItem(
+                    "email",
+                    formData.email
+                );
+
+
+                console.log(
+                    "JWT SAVED:",
+                    localStorage.getItem("token")
+                );
+
+                console.log(
+                    "EMAIL SAVED:",
+                    localStorage.getItem("email")
+                );
+
+
+                alert(
+                    "Login Successful"
+                );
+
 
                 navigate("/dashboard");
 
             } else {
 
-                alert(response.data.message);
+                alert(
+                    response.data?.message ||
+                    "Login Failed"
+                );
 
             }
 
+
         } catch (error) {
 
+            console.error(
+                "LOGIN ERROR:",
+                error
+            );
+
+
             if (error.response) {
-                alert(error.response.data.message || "Login Failed");
+
+                console.error(
+                    "LOGIN STATUS:",
+                    error.response.status
+                );
+
+                console.error(
+                    "LOGIN RESPONSE:",
+                    error.response.data
+                );
+
+
+                const serverMessage =
+                    error.response.data?.message ||
+                    (
+                        typeof error.response.data ===
+                        "string"
+                            ? error.response.data
+                            : null
+                    ) ||
+                    "Login Failed";
+
+
+                alert(
+                    serverMessage
+                );
+
             } else {
-                alert("Server Error");
+
+                alert(
+                    "Server Error / Network Issue"
+                );
+
             }
 
         }
 
     };
+
 
     return (
 
@@ -63,11 +170,19 @@ function LoginForm() {
 
             <div className="login-box">
 
-                <h1>SecureVault</h1>
+                <h1>
+                    SecureVault
+                </h1>
 
-                <h2>Login</h2>
 
-                <form onSubmit={handleSubmit}>
+                <h2>
+                    Login
+                </h2>
+
+
+                <form
+                    onSubmit={handleSubmit}
+                >
 
                     <input
                         type="email"
@@ -78,6 +193,7 @@ function LoginForm() {
                         required
                     />
 
+
                     <input
                         type="password"
                         name="password"
@@ -87,23 +203,33 @@ function LoginForm() {
                         required
                     />
 
-                    <button type="submit">
+
+                    <button
+                        type="submit"
+                    >
                         Login
                     </button>
 
                 </form>
 
+
                 <p className="forgot-password">
+
                     <Link to="/forgot-password">
                         Forgot Password?
                     </Link>
+
                 </p>
 
+
                 <p className="register-text">
+
                     Don't have an account?
+
                     <Link to="/register">
                         {" "}Register
                     </Link>
+
                 </p>
 
             </div>

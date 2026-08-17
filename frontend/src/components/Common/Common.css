@@ -1,0 +1,22 @@
+.password-field {
+    position: relative;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.password-field input {
+    width: 100%;
+    box-sizing: border-box;
+    padding-right: 65px;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 13px;
+}

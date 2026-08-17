@@ -3,6 +3,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import API from "../../services/api";
 import "./Vault.css";
 
+import PasswordGenerator from "../PasswordManagement/PasswordGenerator";
+import PasswordStrength from "../PasswordManagement/PasswordStrength";
+import PasswordSuggestions from "../PasswordManagement/PasswordSuggestions";
+
 function EditCredential() {
 
     const navigate = useNavigate();
@@ -22,7 +26,9 @@ function EditCredential() {
 
                 const email = localStorage.getItem("email");
 
-                const response = await API.get("/credentials/all/" + email);
+                const response = await API.get(
+                    "/credentials/all/" + email
+                );
 
                 const credential = response.data.find(
                     c => c.id === Number(id)
@@ -65,13 +71,26 @@ function EditCredential() {
 
     };
 
+    // Receive generated password
+    const handleGeneratedPassword = (password) => {
+
+        setFormData({
+            ...formData,
+            password: password
+        });
+
+    };
+
     const handleSubmit = async (e) => {
 
         e.preventDefault();
 
         try {
 
-            await API.put("/credentials/update/" + id, formData);
+            await API.put(
+                "/credentials/update/" + id,
+                formData
+            );
 
             alert("Credential Updated Successfully");
 
@@ -79,8 +98,32 @@ function EditCredential() {
 
         } catch (error) {
 
-            console.log(error);
-            alert("Update Failed");
+            console.log("UPDATE CREDENTIAL ERROR:", error);
+
+            if (error.response) {
+
+                console.log(
+                    "STATUS:",
+                    error.response.status
+                );
+
+                console.log(
+                    "DATA:",
+                    error.response.data
+                );
+
+                alert(
+                    "Status: " +
+                    error.response.status +
+                    "\nResponse: " +
+                    JSON.stringify(error.response.data)
+                );
+
+            } else {
+
+                alert("Update Failed");
+
+            }
 
         }
 
@@ -121,6 +164,24 @@ function EditCredential() {
                         value={formData.password}
                         onChange={handleChange}
                         required
+                    />
+
+                    {/* Password Strength */}
+
+                    <PasswordStrength
+                        password={formData.password}
+                    />
+
+                    {/* Password Suggestions */}
+
+                    <PasswordSuggestions
+                        password={formData.password}
+                    />
+
+                    {/* Password Generator */}
+
+                    <PasswordGenerator
+                        onGenerate={handleGeneratedPassword}
                     />
 
                     <button type="submit">

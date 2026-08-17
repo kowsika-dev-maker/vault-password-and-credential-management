@@ -1,6 +1,7 @@
 package com.securevault.backend.config;
 
-import com.securevault.backend.filter.JwtFilter;
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,7 +13,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.List;
+import com.securevault.backend.filter.JwtFilter;
 
 @Configuration
 public class SecurityConfig {
@@ -62,20 +63,30 @@ public class SecurityConfig {
 
         http
                 .csrf(csrf -> csrf.disable())
-                .cors(cors -> {})
+
+                .cors(cors -> cors.configurationSource(
+                        corsConfigurationSource()
+                ))
+
                 .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                        session.sessionCreationPolicy(
+                                SessionCreationPolicy.STATELESS
+                        )
+                )
+
                 .authorizeHttpRequests(auth -> auth
 
-                        // Allow Auth APIs
+                        // Login, Register, Forgot Password, Reset Password
                         .requestMatchers("/api/auth/**").permitAll()
 
-                        // Protect Credential APIs
+                        // Credential APIs require JWT
                         .requestMatchers("/api/credentials/**").authenticated()
 
+                        // Everything else requires authentication
                         .anyRequest().authenticated()
                 )
 
+                // IMPORTANT: Enable JWT Filter
                 .addFilterBefore(
                         jwtFilter,
                         UsernamePasswordAuthenticationFilter.class

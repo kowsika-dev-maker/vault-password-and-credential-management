@@ -1,0 +1,528 @@
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #ffffff;
+    color: #29213d;
+}
+
+
+/* =========================================================
+   SHARE CREDENTIAL PAGE
+========================================================= */
+
+.sharing-container {
+    min-height: 100vh;
+    width: 100%;
+    padding: 40px;
+    background: #ffffff;
+}
+
+
+/* =========================================================
+   SHARE BOX
+========================================================= */
+
+.sharing-box {
+    width: 100%;
+    max-width: 600px;
+    margin: 40px auto;
+
+    padding: 40px;
+
+    background: #ffffff;
+
+    border: 1px solid #e2d6f3;
+    border-radius: 14px;
+
+    box-shadow: 0 6px 20px rgba(91, 33, 182, 0.10);
+}
+
+
+/* =========================================================
+   SHARE TITLE
+========================================================= */
+
+.sharing-box h2 {
+    margin: 0 0 30px;
+
+    text-align: center;
+
+    color: #6d28d9;
+
+    font-size: 28px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.sharing-box form {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.sharing-box input {
+    width: 100%;
+    height: 52px;
+
+    padding: 0 16px;
+
+    margin-bottom: 20px;
+
+    border: 1px solid #d8c9ec;
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #29213d;
+
+    font-size: 15px;
+
+    outline: none;
+}
+
+.sharing-box input::placeholder {
+    color: #9990a8;
+}
+
+.sharing-box input:focus {
+    border-color: #7c3aed;
+
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.10);
+}
+
+
+/* =========================================================
+   SELECT
+========================================================= */
+
+.sharing-box select {
+    width: 100%;
+    height: 52px;
+
+    padding: 0 16px;
+
+    margin-bottom: 22px;
+
+    border: 1px solid #d8c9ec;
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #29213d;
+
+    font-size: 15px;
+
+    outline: none;
+
+    cursor: pointer;
+}
+
+.sharing-box select:focus {
+    border-color: #7c3aed;
+
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.10);
+}
+
+
+/* =========================================================
+   SHARE BUTTON
+========================================================= */
+
+.sharing-box button {
+    width: 100%;
+    height: 52px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #7c3aed;
+
+    color: #ffffff;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.sharing-box button:hover {
+    background: #6d28d9;
+}
+
+.sharing-box button:active {
+    transform: scale(0.99);
+}
+
+
+/* =========================================================
+   SHARED WITH ME PAGE
+========================================================= */
+
+.shared-container {
+    min-height: 100vh;
+    width: 100%;
+
+    padding: 40px;
+
+    background: #ffffff;
+}
+
+
+/* =========================================================
+   PAGE TITLE
+========================================================= */
+
+.shared-container h2 {
+    margin: 0 0 25px;
+
+    color: #5b21b6;
+
+    font-size: 30px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   BACK TO DASHBOARD BUTTON
+========================================================= */
+
+.shared-container > button {
+    padding: 11px 20px;
+
+    margin-bottom: 30px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #7c3aed;
+
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.shared-container > button:hover {
+    background: #6d28d9;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.shared-container table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background: #ffffff;
+
+    border: 1px solid #d9cbea;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    box-shadow: 0 4px 15px rgba(91, 33, 182, 0.08);
+}
+
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+.shared-container th {
+    padding: 18px 20px;
+
+    background: #6d28d9;
+
+    color: #ffffff;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    text-align: left;
+
+    border-right: 1px solid #8b5cf6;
+}
+
+.shared-container th:last-child {
+    border-right: none;
+}
+
+
+/* =========================================================
+   TABLE ROWS
+========================================================= */
+
+.shared-container tr {
+    border-bottom: 1px solid #e4dcef;
+}
+
+.shared-container tbody tr:last-child {
+    border-bottom: none;
+}
+
+.shared-container tbody tr:nth-child(even) {
+    background: #faf8ff;
+}
+
+.shared-container tbody tr:hover {
+    background: #f4efff;
+}
+
+
+/* =========================================================
+   TABLE CELLS
+========================================================= */
+
+.shared-container td {
+    padding: 20px;
+
+    min-height: 65px;
+
+    color: #3d354c;
+
+    font-size: 15px;
+
+    text-align: left;
+
+    vertical-align: middle;
+
+    border-right: 1px solid #e4dcef;
+}
+
+.shared-container td:last-child {
+    border-right: none;
+}
+
+
+/* =========================================================
+   WEBSITE
+========================================================= */
+
+.shared-container td:first-child {
+    color: #5b21b6;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   USERNAME
+========================================================= */
+
+.shared-container td:nth-child(2) {
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   PASSWORD
+========================================================= */
+
+.shared-container td:nth-child(3) {
+    font-family: "Consolas", "Courier New", monospace;
+
+    color: #40374d;
+
+    letter-spacing: 0.5px;
+}
+
+
+/* =========================================================
+   OWNER EMAIL
+========================================================= */
+
+.shared-container td:nth-child(4) {
+    color: #665c72;
+}
+
+
+/* =========================================================
+   PERMISSION
+========================================================= */
+
+.shared-container td:nth-child(5) {
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   PERMISSION BADGES
+========================================================= */
+
+.permission-badge {
+    display: inline-block;
+
+    padding: 7px 14px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* View Only */
+
+.permission-view {
+    background: #ede9fe;
+    color: #6d28d9;
+}
+
+
+/* Edit */
+
+.permission-edit {
+    background: #fef3c7;
+    color: #a16207;
+}
+
+
+/* Full Management */
+
+.permission-full {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+.shared-action-button {
+    padding: 9px 16px;
+
+    margin-right: 8px;
+
+    border: none;
+    border-radius: 7px;
+
+    color: #ffffff;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+/* Edit */
+
+.edit-button {
+    background: #f59e0b;
+}
+
+.edit-button:hover {
+    background: #d97706;
+}
+
+
+/* Management */
+
+.manage-button {
+    background: #7c3aed;
+}
+
+.manage-button:hover {
+    background: #6d28d9;
+}
+
+
+/* Delete */
+
+.delete-button {
+    background: #ef4444;
+}
+
+.delete-button:hover {
+    background: #dc2626;
+}
+
+
+/* =========================================================
+   NO SHARED CREDENTIALS
+========================================================= */
+
+.shared-container > p {
+    width: 100%;
+
+    padding: 30px;
+
+    margin-top: 20px;
+
+    text-align: center;
+
+    background: #faf8ff;
+
+    border: 1px solid #e3d8f2;
+
+    border-radius: 8px;
+
+    color: #71677d;
+
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .shared-container {
+        padding: 25px 20px;
+
+        overflow-x: auto;
+    }
+
+    .shared-container table {
+        min-width: 900px;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .sharing-container {
+        padding: 20px;
+    }
+
+    .sharing-box {
+        padding: 30px 20px;
+        margin: 20px auto;
+    }
+
+    .shared-container {
+        padding: 25px 15px;
+    }
+
+    .shared-container h2 {
+        font-size: 25px;
+    }
+}

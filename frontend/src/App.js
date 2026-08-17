@@ -9,30 +9,82 @@ import Dashboard from "./components/Dashboard/Dashboard";
 
 import AddCredential from "./components/Vault/AddCredential";
 import EditCredential from "./components/Vault/EditCredential";
-//import ViewCredential from "./components/Vault/ViewCredential";
+
+// Milestone 2 - Sharing
+import ShareCredential from "./components/Sharing/ShareCredential";
+import SharedCredentials from "./components/Sharing/SharedCredentials";
+
 
 function App() {
-  return (
-    <BrowserRouter>
 
-      <Routes>
+    return (
 
-        <Route path="/" element={<LoginForm />} />
-        <Route path="/register" element={<RegisterForm />} />
+        <BrowserRouter>
 
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
+            <Routes>
 
-        <Route path="/dashboard" element={<Dashboard />} />
+                {/* Authentication */}
 
-        <Route path="/add-credential" element={<AddCredential />} />
-        <Route path="/edit-credential/:id" element={<EditCredential />} />
-        
+                <Route
+                    path="/"
+                    element={<LoginForm />}
+                />
 
-      </Routes>
+                <Route
+                    path="/register"
+                    element={<RegisterForm />}
+                />
 
-    </BrowserRouter>
-  );
+                <Route
+                    path="/forgot-password"
+                    element={<ForgotPassword />}
+                />
+
+                <Route
+                    path="/reset-password"
+                    element={<ResetPassword />}
+                />
+
+
+                {/* Dashboard */}
+
+                <Route
+                    path="/dashboard"
+                    element={<Dashboard />}
+                />
+
+
+                {/* Credential Management */}
+
+                <Route
+                    path="/add-credential"
+                    element={<AddCredential />}
+                />
+
+                <Route
+                    path="/edit-credential/:id"
+                    element={<EditCredential />}
+                />
+
+
+                {/* Milestone 2 - Sharing */}
+
+                <Route
+                    path="/share-credential/:id"
+                    element={<ShareCredential />}
+                />
+
+                <Route
+                    path="/shared-credentials"
+                    element={<SharedCredentials />}
+                />
+
+            </Routes>
+
+        </BrowserRouter>
+
+    );
+
 }
 
 export default App;

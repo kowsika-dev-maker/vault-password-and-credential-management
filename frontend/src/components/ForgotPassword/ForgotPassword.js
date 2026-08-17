@@ -8,22 +8,47 @@ function ForgotPassword() {
     const [email, setEmail] = useState("");
 
     const navigate = useNavigate();
+
     const handleSubmit = async (e) => {
 
         e.preventDefault();
 
         try {
 
-            const response = await API.post("/forgot-password", {
-                email
-            });
+            const response = await API.post(
+                "/auth/forgot-password",
+                {
+                    email: email
+                }
+            );
 
             alert(response.data);
+
+            // Store email so ResetPassword can use it
+            localStorage.setItem("resetEmail", email);
+
             navigate("/reset-password");
 
         } catch (error) {
 
-            alert("Failed to send OTP");
+            console.log("Forgot Password Error:", error);
+
+            if (error.response) {
+
+                console.log("Status:", error.response.status);
+                console.log("Data:", error.response.data);
+
+                alert(
+                    error.response.data.message ||
+                    error.response.data ||
+                    "Failed to send OTP"
+                );
+
+            } else {
+
+                alert("Unable to connect to server");
+
+            }
 
         }
 
@@ -59,7 +84,9 @@ function ForgotPassword() {
 
                 <p className="back-login">
                     Remember your password?
-                    <Link to="/login"> Login</Link>
+                    <Link to="/">
+                        {" "}Login
+                    </Link>
                 </p>
 
             </div>

@@ -1,4 +1,4 @@
-package com.securevault.backend.util;
+package com.securevault.backend.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -14,14 +14,21 @@ public class JwtUtil {
             "securevaultsecretkeysecurevault123456";
 
     private static final SecretKey KEY =
-            Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
+            Keys.hmacShaKeyFor(
+                    SECRET.getBytes(StandardCharsets.UTF_8)
+            );
 
     public static String generateToken(String email) {
 
         return Jwts.builder()
                 .subject(email)
                 .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + 60 * 60 * 1000))
+                .expiration(
+                        new Date(
+                                System.currentTimeMillis()
+                                        + 60 * 60 * 1000
+                        )
+                )
                 .signWith(KEY)
                 .compact();
     }

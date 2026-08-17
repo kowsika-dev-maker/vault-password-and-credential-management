@@ -6,6 +6,7 @@ import com.securevault.backend.dto.LoginResponse;
 import com.securevault.backend.dto.RegisterRequest;
 import com.securevault.backend.dto.VerifyOtpRequest;
 import com.securevault.backend.service.UserService;
+
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,27 +23,68 @@ public class AuthController {
         this.userService = userService;
     }
 
-    // Register
+
+    // =========================================================
+    // REGISTER
+    // =========================================================
+
     @PostMapping("/register")
-    public String register(@RequestBody RegisterRequest request) {
+    public String register(
+            @RequestBody RegisterRequest request
+    ) {
+
         return userService.register(request);
     }
 
-    // Login (Returns JWT Token)
+
+    // =========================================================
+    // LOGIN
+    // =========================================================
+
     @PostMapping("/login")
-    public LoginResponse login(@RequestBody LoginRequest request) {
-        return userService.login(request);
+    public LoginResponse login(
+            @RequestBody LoginRequest request
+    ) {
+
+        System.out.println(
+                "LOGIN REQUEST RECEIVED: "
+                        + request.getEmail()
+        );
+
+        LoginResponse response =
+                userService.login(request);
+
+        System.out.println(
+                "LOGIN RESPONSE: "
+                        + response.getMessage()
+        );
+
+        return response;
     }
 
-    // Forgot Password
+
+    // =========================================================
+    // FORGOT PASSWORD
+    // =========================================================
+
     @PostMapping("/forgot-password")
-    public String forgotPassword(@RequestBody ForgotPasswordRequest request) {
+    public String forgotPassword(
+            @RequestBody ForgotPasswordRequest request
+    ) {
+
         return userService.forgotPassword(request);
     }
 
-    // Reset Password
+
+    // =========================================================
+    // RESET PASSWORD
+    // =========================================================
+
     @PostMapping("/reset-password")
-    public String resetPassword(@RequestBody VerifyOtpRequest request) {
+    public String resetPassword(
+            @RequestBody VerifyOtpRequest request
+    ) {
+
         return userService.resetPassword(request);
     }
 }
