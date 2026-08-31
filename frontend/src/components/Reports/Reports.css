@@ -1,0 +1,554 @@
+/* =========================================================
+   SECUREVAULT REPORTS PAGE
+   Purple + White Professional Theme
+========================================================= */
+
+.reports-page {
+
+    min-height: 100vh;
+
+    background: #ffffff;
+
+    color: #252525;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.reports-content {
+
+    width: 92%;
+
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    padding: 45px 0 70px;
+}
+
+
+/* =========================================================
+   PAGE HEADING
+========================================================= */
+
+.reports-heading {
+
+    margin-bottom: 35px;
+}
+
+.reports-heading h1 {
+
+    margin: 0 0 8px;
+
+    font-size: 32px;
+
+    font-weight: 800;
+
+    color: #252525;
+}
+
+.reports-heading p {
+
+    margin: 0;
+
+    font-size: 15px;
+
+    color: #71717a;
+}
+
+
+/* =========================================================
+   REPORT SECTION
+========================================================= */
+
+.report-section {
+
+    margin-bottom: 38px;
+
+    background: #ffffff;
+
+    border: 1px solid #e6e1f5;
+
+    border-radius: 14px;
+
+    padding: 28px;
+
+    box-shadow:
+        0 4px 18px rgba(91, 45, 150, 0.06);
+}
+
+
+/* =========================================================
+   SECTION TITLE
+========================================================= */
+
+.section-title {
+
+    margin-bottom: 25px;
+}
+
+.section-title h2 {
+
+    margin: 0 0 6px;
+
+    font-size: 22px;
+
+    font-weight: 750;
+
+    color: #252525;
+}
+
+.section-title p {
+
+    margin: 0;
+
+    font-size: 14px;
+
+    color: #71717a;
+}
+
+
+/* =========================================================
+   REPORT CARDS
+========================================================= */
+
+.report-cards {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 18px;
+}
+
+
+/* =========================================================
+   REPORT CARD
+========================================================= */
+
+.report-card {
+
+    min-height: 105px;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+
+    background: #faf9ff;
+
+    border: 1px solid #e8e1f7;
+
+    border-radius: 11px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    transition: all 0.2s ease;
+}
+
+.report-card:hover {
+
+    border-color: #c9b5ed;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 5px 15px rgba(91, 45, 150, 0.08);
+}
+
+
+/* =========================================================
+   CARD LABEL
+========================================================= */
+
+.report-card-label {
+
+    display: block;
+
+    margin-bottom: 9px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #71717a;
+}
+
+
+/* =========================================================
+   CARD VALUE
+========================================================= */
+
+.report-card-value {
+
+    font-size: 28px;
+
+    font-weight: 800;
+
+    color: #6d28d9;
+}
+
+
+/* =========================================================
+   HEALTH SUMMARY
+========================================================= */
+
+.health-summary {
+
+    margin-top: 22px;
+
+    padding: 22px;
+
+    background: #f7f4ff;
+
+    border: 1px solid #e5dcf7;
+
+    border-radius: 11px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 25px;
+}
+
+
+/* =========================================================
+   HEALTH SUMMARY TEXT
+========================================================= */
+
+.health-summary span {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #71717a;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.4px;
+}
+
+.health-summary h3 {
+
+    margin: 0;
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    color: #5420a8;
+}
+
+
+/* =========================================================
+   HEALTH SCORE
+========================================================= */
+
+.health-score {
+
+    text-align: right;
+
+    min-width: 130px;
+}
+
+.health-score strong {
+
+    display: block;
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    color: #6d28d9;
+}
+
+
+/* =========================================================
+   LOGIN ACTIVITY
+========================================================= */
+
+.activity-report {
+
+    margin-top: 28px;
+}
+
+.activity-report h3 {
+
+    margin: 0 0 17px;
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    color: #252525;
+}
+
+
+/* =========================================================
+   TABLE WRAPPER
+========================================================= */
+
+.table-wrapper {
+
+    width: 100%;
+
+    overflow-x: auto;
+
+    border: 1px solid #e6e1f5;
+
+    border-radius: 10px;
+}
+
+
+/* =========================================================
+   REPORT TABLE
+========================================================= */
+
+.reports-table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 750px;
+
+    background: #ffffff;
+}
+
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+.reports-table thead {
+
+    background: #f4effd;
+}
+
+.reports-table th {
+
+    padding: 15px 16px;
+
+    text-align: left;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    color: #5420a8;
+
+    border-bottom: 1px solid #e3daf3;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   TABLE BODY
+========================================================= */
+
+.reports-table td {
+
+    padding: 14px 16px;
+
+    font-size: 14px;
+
+    color: #3f3f46;
+
+    border-bottom: 1px solid #f0edf5;
+
+    white-space: nowrap;
+}
+
+.reports-table tbody tr:last-child td {
+
+    border-bottom: none;
+}
+
+.reports-table tbody tr:hover {
+
+    background: #faf9ff;
+}
+
+
+/* =========================================================
+   STATUS BADGE
+========================================================= */
+
+.status-badge {
+
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+}
+
+
+/* SUCCESS */
+
+.status-badge.success {
+
+    background: #dcfce7;
+
+    color: #166534;
+}
+
+
+/* FAILED */
+
+.status-badge.failed {
+
+    background: #fee2e2;
+
+    color: #b91c1c;
+}
+
+
+/* SUSPICIOUS */
+
+.status-badge.suspicious {
+
+    background: #fef3c7;
+
+    color: #92400e;
+}
+
+
+/* =========================================================
+   NO ACTIVITY
+========================================================= */
+
+.no-activity {
+
+    text-align: center;
+
+    padding: 30px !important;
+
+    color: #71717a !important;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.reports-loading {
+
+    padding: 80px 20px;
+
+    text-align: center;
+
+    font-size: 16px;
+
+    color: #6d28d9;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.reports-error {
+
+    padding: 20px;
+
+    background: #fef2f2;
+
+    border: 1px solid #fecaca;
+
+    border-radius: 10px;
+
+    color: #b91c1c;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   RESPONSIVE - TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .report-cards {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .reports-content {
+
+        width: 94%;
+
+        padding: 30px 0 50px;
+    }
+
+
+    .reports-heading h1 {
+
+        font-size: 27px;
+    }
+
+
+    .report-section {
+
+        padding: 20px;
+    }
+
+
+    .report-cards {
+
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+    }
+
+
+    .health-summary {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+
+    .health-score {
+
+        text-align: left;
+    }
+
+}

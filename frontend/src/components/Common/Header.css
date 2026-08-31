@@ -1,0 +1,557 @@
+/* =========================================================
+   HEADER
+========================================================= */
+
+.main-header {
+
+    width: 100%;
+
+    height: 88px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #eee8f7;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 0 48px;
+
+    box-sizing: border-box;
+
+    position: relative;
+
+    z-index: 1000;
+
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.header-logo {
+
+    font-size: 26px;
+
+    font-weight: 800;
+
+    color: #6424d6;
+
+    letter-spacing: -0.7px;
+
+    cursor: pointer;
+
+    min-width: 180px;
+
+  
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.header-navigation {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-left: 30px;
+
+    height: 100%;
+
+}
+
+
+/* =========================================================
+   NORMAL NAVIGATION LINKS
+========================================================= */
+
+.header-link {
+
+    height: 44px;
+
+    padding: 0 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-decoration: none;
+
+    color: #292334;
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+    border-radius: 9px;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+
+}
+
+
+.header-link:hover {
+
+    color: #6424d6;
+
+    background: #f6f1ff;
+
+}
+
+
+.header-link.active {
+
+    background: #7027dc;
+
+    color: #ffffff;
+
+    font-weight: 600;
+
+    box-shadow: 0 5px 14px rgba(112, 39, 220, 0.20);
+
+}
+
+
+/* =========================================================
+   SECURITY DROPDOWN CONTAINER
+========================================================= */
+
+.security-dropdown {
+
+    position: relative;
+
+    height: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+}
+
+
+/* =========================================================
+   SECURITY BUTTON
+========================================================= */
+
+.security-dropdown-button {
+
+    height: 44px;
+
+    padding: 0 18px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #292334;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+    border-radius: 9px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+.security-dropdown-button:hover {
+
+    background: #f6f1ff;
+
+    color: #6424d6;
+
+}
+
+
+/* =========================================================
+   SECURITY ACTIVE
+========================================================= */
+
+.security-dropdown-button.security-active {
+
+    background: #7027dc;
+
+    color: #ffffff;
+
+    font-weight: 600;
+
+    box-shadow:
+        0 5px 14px rgba(112, 39, 220, 0.20);
+
+}
+
+
+/* =========================================================
+   DROPDOWN ARROW
+========================================================= */
+
+.dropdown-arrow {
+
+    font-size: 13px;
+
+    line-height: 1;
+
+    transition: transform 0.2s ease;
+
+}
+
+
+.dropdown-arrow.open {
+
+    transform: rotate(180deg);
+
+}
+
+
+/* =========================================================
+   SECURITY DROPDOWN MENU
+========================================================= */
+
+.security-dropdown-menu {
+
+    position: absolute;
+
+    top: calc(100% - 10px);
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 285px;
+
+    background: #ffffff;
+
+    border: 1px solid #e9e0f7;
+
+    border-radius: 12px;
+
+    padding: 8px;
+
+    box-shadow:
+        0 14px 35px rgba(45, 25, 75, 0.14),
+        0 3px 8px rgba(45, 25, 75, 0.06);
+
+    animation: securityDropdownOpen 0.18s ease-out;
+
+}
+
+
+/* =========================================================
+   DROPDOWN ANIMATION
+========================================================= */
+
+@keyframes securityDropdownOpen {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateX(-50%)
+            translateY(-6px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateX(-50%)
+            translateY(0);
+
+    }
+
+}
+
+
+/* =========================================================
+   DROPDOWN ITEM
+========================================================= */
+
+.security-menu-item {
+
+    width: 100%;
+
+    min-height: 64px;
+
+    border: none;
+
+    background: transparent;
+
+    border-radius: 9px;
+
+    padding: 10px 11px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+    transition:
+        background 0.18s ease,
+        transform 0.18s ease;
+
+}
+
+
+.security-menu-item:hover {
+
+    background: #f7f3ff;
+
+    transform: translateX(2px);
+
+}
+
+
+/* =========================================================
+   MENU ICON
+========================================================= */
+
+.security-menu-icon {
+
+    width: 36px;
+
+    height: 36px;
+
+    flex-shrink: 0;
+
+    border-radius: 9px;
+
+    background: #f0e8ff;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 17px;
+
+}
+
+
+/* =========================================================
+   MENU CONTENT
+========================================================= */
+
+.security-menu-content {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+
+}
+
+
+.security-menu-content strong {
+
+    color: #332744;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+}
+
+
+.security-menu-content small {
+
+    color: #8a8294;
+
+    font-size: 11.5px;
+
+    line-height: 1.35;
+
+}
+
+
+/* =========================================================
+   RIGHT SIDE
+========================================================= */
+
+.header-right {
+
+    margin-left: auto;
+
+    display: flex;
+
+    align-items: center;
+
+}
+
+
+/* =========================================================
+   LOGOUT BUTTON
+========================================================= */
+
+.logout-button {
+
+    border: none;
+
+    background: #ef3333;
+
+    color: #ffffff;
+
+    height: 42px;
+
+    padding: 0 25px;
+
+    border-radius: 9px;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+.logout-button:hover {
+
+    background: #d92727;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 12px rgba(239, 51, 51, 0.20);
+
+}
+
+
+.logout-button:active {
+
+    transform: translateY(0);
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .main-header {
+
+        padding: 0 24px;
+
+    }
+
+    .header-logo {
+
+        min-width: auto;
+
+        font-size: 23px;
+
+    }
+
+    .header-navigation {
+
+        margin-left: 15px;
+
+        gap: 3px;
+
+    }
+
+    .header-link {
+
+        padding: 0 12px;
+
+    }
+
+    .security-dropdown-button {
+
+        padding: 0 12px;
+
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .main-header {
+
+        height: auto;
+
+        min-height: 80px;
+
+        flex-wrap: wrap;
+
+        padding: 14px 20px;
+
+        gap: 10px;
+
+    }
+
+    .header-logo {
+
+        width: 100%;
+
+    }
+
+    .header-navigation {
+
+        margin-left: 0;
+
+        flex-wrap: wrap;
+
+        height: auto;
+
+    }
+
+    .header-right {
+
+        margin-left: 0;
+
+    }
+
+}

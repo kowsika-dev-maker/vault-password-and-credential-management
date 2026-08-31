@@ -1,365 +1,385 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 import API from "../../services/api";
+import Navbar from "../Navbar/Navbar";
+
 import "./Dashboard.css";
+
 
 function Dashboard() {
 
     const navigate = useNavigate();
 
-    const [credentials, setCredentials] = useState([]);
+    const [credentialCount, setCredentialCount] = useState(0);
 
-    // Track which passwords are currently visible
-    const [visiblePasswords, setVisiblePasswords] = useState({});
+    const email = localStorage.getItem("email");
 
+
+    // =========================================================
+    // CHECK LOGIN + LOAD DASHBOARD DATA
+    // =========================================================
 
     useEffect(() => {
 
-        const token = localStorage.getItem("token");
+        const loadDashboardData = async () => {
 
-        if (!token) {
+            const token = localStorage.getItem("token");
 
-            navigate("/");
+            if (!token) {
 
-            return;
-        }
+                navigate("/");
 
-        loadCredentials();
-
-    }, [navigate]);
+                return;
+            }
 
 
-    const loadCredentials = async () => {
+            try {
 
-        try {
-
-            const email = localStorage.getItem("email");
-
-            const response = await API.get(
-                "/credentials/all/" + email
-            );
-
-            setCredentials(response.data);
-
-        } catch (error) {
-
-            console.log(error);
-
-            alert("Unable to load credentials");
-
-        }
-
-    };
+                const response =
+                    await API.get(
+                        "/credentials/all/" + email
+                    );
 
 
-    // Show / Hide password
-    const togglePassword = (id) => {
-
-        setVisiblePasswords((previous) => ({
-            ...previous,
-            [id]: !previous[id]
-        }));
-
-    };
+                setCredentialCount(
+                    response.data.length
+                );
 
 
-    // Delete credential
-    const handleDelete = async (id) => {
+            } catch (error) {
 
-        try {
+                console.log(
+                    "Unable to load dashboard data:",
+                    error
+                );
 
-            await API.delete(
-                "/credentials/delete/" + id
-            );
+            }
 
-            alert(
-                "Credential Deleted Successfully"
-            );
-
-            loadCredentials();
-
-        } catch (error) {
-
-            console.log(error);
-
-            alert(
-                "Failed to Delete Credential"
-            );
-
-        }
-
-    };
+        };
 
 
-    // Logout
-    const handleLogout = () => {
+        loadDashboardData();
 
-        localStorage.removeItem("token");
-
-        localStorage.removeItem("email");
-
-        navigate("/");
-
-    };
+    }, [navigate, email]);
 
 
     return (
 
         <div className="dashboard-container">
 
-            <div className="dashboard-box">
+
+            {/* =================================================
+                COMMON NAVBAR
+            ================================================= */}
+
+            <Navbar />
 
 
-                {/* Dashboard Header */}
+            {/* =================================================
+                MAIN CONTENT
+            ================================================= */}
 
-                <div className="dashboard-header">
-
-                    <h1>
-                        SecureVault
-                    </h1>
+            <main className="dashboard-content">
 
 
-                    <button
-                        className="logout-btn"
-                        onClick={handleLogout}
-                    >
-                        Logout
-                    </button>
+                {/* =================================================
+                    WELCOME
+                ================================================= */}
 
-                </div>
+                <section className="welcome-section">
+
+                    <div>
+
+                        <span className="welcome-label">
+                            SECUREVAULT
+                        </span>
+
+                        <h1>
+                            Welcome back 👋
+                        </h1>
+
+                        <p>
+                            Manage your digital credentials securely
+                            from one place.
+                        </p>
+
+                        <span className="welcome-email">
+                            {email}
+                        </span>
+
+                    </div>
 
 
-                <h2>
-                    Password Vault
-                </h2>
+                    <div className="welcome-icon">
+                        🔐
+                    </div>
+
+                </section>
 
 
-                {/* Top Bar */}
+                {/* =================================================
+                    OVERVIEW
+                ================================================= */}
 
-                <div className="top-bar">
+                <section className="dashboard-section">
 
-                    <input
-                        type="text"
-                        placeholder="Search Website..."
-                    />
+                    <div className="section-title">
+
+                        <h2>
+                            Overview
+                        </h2>
+
+                        <p>
+                            Your vault at a glance.
+                        </p>
+
+                    </div>
 
 
-                    {/* Add Credential */}
+                    <div className="overview-grid">
 
-                    <Link to="/add-credential">
 
-                        <button className="add-btn">
+                        {/* CREDENTIALS */}
 
-                            + Add Credential
+                        <div className="overview-card">
+
+                            <div className="overview-icon">
+                                🔑
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    CREDENTIALS
+                                </span>
+
+                                <h3>
+                                    {credentialCount}
+                                </h3>
+
+                                <p>
+                                    Stored credentials
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        {/* VAULT STATUS */}
+
+                        <div className="overview-card">
+
+                            <div className="overview-icon">
+                                ✓
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    VAULT STATUS
+                                </span>
+
+                                <h3 className="status-active">
+                                    Active
+                                </h3>
+
+                                <p>
+                                    Ready to use
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        {/* PRIVACY */}
+
+                        <div className="overview-card">
+
+                            <div className="overview-icon">
+                                🛡️
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    PRIVACY
+                                </span>
+
+                                <h3 className="status-active">
+                                    Protected
+                                </h3>
+
+                                <p>
+                                    Your data stays private
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                {/* =================================================
+                    QUICK ACTIONS
+                ================================================= */}
+
+                <section className="dashboard-section">
+
+                    <div className="section-title">
+
+                        <h2>
+                            Quick Actions
+                        </h2>
+
+                        <p>
+                            Manage your SecureVault account.
+                        </p>
+
+                    </div>
+
+
+                    <div className="quick-actions">
+
+
+                        {/* CREDENTIALS */}
+
+                        <button
+                            className="action-card"
+                            onClick={() =>
+                                navigate("/credentials")
+                            }
+                        >
+
+                            <span className="action-icon">
+                                🔑
+                            </span>
+
+                            <span className="action-content">
+
+                                <strong>
+                                    Credentials
+                                </strong>
+
+                                <small>
+                                    Manage your saved credentials
+                                </small>
+
+                            </span>
+
+                            <span className="action-arrow">
+                                →
+                            </span>
 
                         </button>
 
-                    </Link>
 
+                        {/* SECURITY */}
 
-                    {/* Shared With Me */}
+                        <button
+                            className="action-card"
+                            onClick={() =>
+                                navigate("/security")
+                            }
+                        >
 
-                    <button
-                        className="add-btn"
-                        onClick={() =>
-                            navigate(
-                                "/shared-credentials"
-                            )
-                        }
-                    >
-                        Shared With Me
-                    </button>
+                            <span className="action-icon">
+                                🛡️
+                            </span>
 
-                </div>
+                            <span className="action-content">
 
+                                <strong>
+                                    Security
+                                </strong>
 
-                {/* Credential Table */}
+                                <small>
+                                    Review your account security
+                                </small>
 
-                <table>
+                            </span>
 
-                    <thead>
+                            <span className="action-arrow">
+                                →
+                            </span>
 
-                        <tr>
+                        </button>
 
-                            <th>
-                                Website
-                            </th>
 
-                            <th>
-                                Username
-                            </th>
+                        {/* PROFILE */}
 
-                            <th>
-                                Password
-                            </th>
+                        <button
+                            className="action-card"
+                            onClick={() =>
+                                navigate("/profile")
+                            }
+                        >
 
-                            <th>
-                                Actions
-                            </th>
+                            <span className="action-icon">
+                                👤
+                            </span>
 
-                        </tr>
+                            <span className="action-content">
 
-                    </thead>
+                                <strong>
+                                    Profile
+                                </strong>
 
+                                <small>
+                                    Manage your account details
+                                </small>
 
-                    <tbody>
+                            </span>
 
-                        {credentials.length === 0 ? (
+                            <span className="action-arrow">
+                                →
+                            </span>
 
-                            <tr>
+                        </button>
 
-                                <td colSpan="4">
+                    </div>
 
-                                    No Credentials Found
+                </section>
 
-                                </td>
 
-                            </tr>
+                {/* =================================================
+                    FOOTER INFO
+                ================================================= */}
 
-                        ) : (
+                <section className="vault-message">
 
-                            credentials.map(
-                                (credential) => (
+                    <span>
+                        🔒
+                    </span>
 
-                                    <tr
-                                        key={
-                                            credential.id
-                                        }
-                                    >
+                    <div>
 
+                        <strong>
+                            Your credentials, your vault.
+                        </strong>
 
-                                        {/* Website */}
+                        <p>
+                            SecureVault helps you keep your
+                            important credentials organized and protected.
+                        </p>
 
-                                        <td>
-                                            {
-                                                credential.website
-                                            }
-                                        </td>
+                    </div>
 
+                </section>
 
-                                        {/* Username */}
 
-                                        <td>
-                                            {
-                                                credential.username
-                                            }
-                                        </td>
-
-
-                                        {/* Password */}
-
-                                        <td>
-
-                                            <div className="password-display">
-
-                                                <span>
-
-                                                    {
-                                                        visiblePasswords[
-                                                            credential.id
-                                                        ]
-
-                                                            ? credential.password
-
-                                                            : "••••••••"
-                                                    }
-
-                                                </span>
-
-
-                                                <button
-                                                    type="button"
-                                                    className="password-toggle-btn"
-                                                    onClick={() =>
-                                                        togglePassword(
-                                                            credential.id
-                                                        )
-                                                    }
-                                                >
-
-                                                    {
-                                                        visiblePasswords[
-                                                            credential.id
-                                                        ]
-
-                                                            ? "Hide"
-
-                                                            : "Show"
-                                                    }
-
-                                                </button>
-
-                                            </div>
-
-                                        </td>
-
-
-                                        {/* Actions */}
-
-                                        <td>
-
-
-                                            {/* Edit */}
-
-                                            <button
-                                                onClick={() =>
-                                                    navigate(
-                                                        "/edit-credential/" +
-                                                        credential.id
-                                                    )
-                                                }
-                                            >
-                                                Edit
-                                            </button>
-
-
-                                            {/* Share */}
-
-                                            <button
-                                                onClick={() =>
-                                                    navigate(
-                                                        "/share-credential/" +
-                                                        credential.id
-                                                    )
-                                                }
-                                            >
-                                                Share
-                                            </button>
-
-
-                                            {/* Delete */}
-
-                                            <button
-                                                onClick={() =>
-                                                    handleDelete(
-                                                        credential.id
-                                                    )
-                                                }
-                                            >
-                                                Delete
-                                            </button>
-
-
-                                        </td>
-
-                                    </tr>
-
-                                )
-
-                            )
-
-                        )}
-
-                    </tbody>
-
-                </table>
-
-            </div>
+            </main>
 
         </div>
 
     );
 
 }
+
 
 export default Dashboard;

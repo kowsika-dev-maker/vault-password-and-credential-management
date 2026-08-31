@@ -1,0 +1,514 @@
+/* =========================================================
+   PAGE
+========================================================= */
+
+.security-page {
+
+    min-height: 100vh;
+
+    background: #ffffff;
+
+    color: #252525;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.security-content {
+
+    width: 92%;
+
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    padding: 45px 0 70px;
+}
+
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.security-heading {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 35px;
+}
+
+
+.security-heading h1 {
+
+    font-size: 32px;
+
+    color: #4c1d95;
+
+    margin-bottom: 8px;
+}
+
+
+.security-heading p {
+
+    color: #777;
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   SUMMARY CARDS
+========================================================= */
+
+.security-cards {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 24px;
+
+    margin-bottom: 35px;
+}
+
+
+.security-card {
+
+    min-height: 150px;
+
+    padding: 28px;
+
+    border-radius: 16px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+
+    background: #ffffff;
+
+    border: 1px solid #e8e0f4;
+
+    box-shadow:
+        0 8px 25px
+        rgba(91, 45, 145, 0.08);
+
+    transition: 0.25s ease;
+}
+
+
+.security-card:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 14px 32px
+        rgba(91, 45, 145, 0.13);
+}
+
+
+.security-card h3 {
+
+    font-size: 15px;
+
+    color: #666;
+
+    margin-bottom: 8px;
+}
+
+
+.security-card strong {
+
+    font-size: 34px;
+
+    color: #3f3f46;
+}
+
+
+/* =========================================================
+   CARD ICON
+========================================================= */
+
+.card-icon {
+
+    width: 55px;
+
+    height: 55px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 14px;
+
+    font-size: 25px;
+
+    font-weight: 700;
+}
+
+
+.success-card {
+
+    border-top: 4px solid #16a34a;
+}
+
+
+.success-card .card-icon {
+
+    background: #dcfce7;
+
+    color: #15803d;
+}
+
+
+.failed-card {
+
+    border-top: 4px solid #ef4444;
+}
+
+
+.failed-card .card-icon {
+
+    background: #fee2e2;
+
+    color: #dc2626;
+}
+
+
+.suspicious-card {
+
+    border-top: 4px solid #f59e0b;
+}
+
+
+.suspicious-card .card-icon {
+
+    background: #fef3c7;
+
+    color: #d97706;
+}
+
+
+/* =========================================================
+   ACTIVITY SECTION
+========================================================= */
+
+.activity-section {
+
+    background: #ffffff;
+
+    border: 1px solid #e8e0f4;
+
+    border-radius: 18px;
+
+    padding: 30px;
+
+    box-shadow:
+        0 8px 28px
+        rgba(91, 45, 145, 0.07);
+}
+
+
+.activity-header {
+
+    margin-bottom: 25px;
+}
+
+
+.activity-header h2 {
+
+    font-size: 23px;
+
+    color: #4c1d95;
+
+    margin-bottom: 6px;
+}
+
+
+.activity-header p {
+
+    color: #888;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.table-wrapper {
+
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+
+.security-table {
+
+    width: 100%;
+
+    min-width: 850px;
+
+    border-collapse: separate;
+
+    border-spacing: 0;
+
+    border: 1px solid #e6def2;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+.security-table thead {
+
+    background:
+        linear-gradient(
+            135deg,
+            #5b21b6,
+            #6d28d9
+        );
+}
+
+
+.security-table th {
+
+    color: #7619ac;
+
+    text-align: left;
+
+    padding: 18px 20px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    border-right:
+        1px solid rgba(255,255,255,0.18);
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   TABLE BODY
+========================================================= */
+
+.security-table td {
+
+    padding: 20px;
+
+    border-bottom: 1px solid #eee8f5;
+
+    border-right: 1px solid #f0ebf6;
+
+    font-size: 14px;
+
+    color: #4b4b4b;
+
+    vertical-align: middle;
+}
+
+
+.security-table tbody tr {
+
+    background: #ffffff;
+
+    transition: 0.2s ease;
+}
+
+
+.security-table tbody tr:nth-child(even) {
+
+    background: #faf8fd;
+}
+
+
+.security-table tbody tr:hover {
+
+    background: #f5f0ff;
+}
+
+
+.security-table tbody tr:last-child td {
+
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   ACTIVITY
+========================================================= */
+
+.activity-name {
+
+    font-weight: 600;
+
+    color: #4c1d95;
+}
+
+
+/* =========================================================
+   STATUS BADGES
+========================================================= */
+
+.status-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 90px;
+
+    padding: 7px 14px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.3px;
+}
+
+
+.status-success {
+
+    background: #dcfce7;
+
+    color: #15803d;
+}
+
+
+.status-failed {
+
+    background: #fee2e2;
+
+    color: #dc2626;
+}
+
+
+.status-suspicious {
+
+    background: #fef3c7;
+
+    color: #b45309;
+}
+
+
+/* =========================================================
+   EMPTY TABLE
+========================================================= */
+
+.empty-row {
+
+    text-align: center !important;
+
+    padding: 45px !important;
+
+    color: #999 !important;
+
+    font-size: 15px !important;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.security-loading {
+
+    min-height: 70vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #6d28d9;
+
+    font-size: 18px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .security-content {
+
+        width: 94%;
+
+        padding-top: 30px;
+    }
+
+
+    .security-cards {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .security-card {
+
+        min-height: 120px;
+    }
+
+
+    .activity-section {
+
+        padding: 20px;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .security-heading h1 {
+
+        font-size: 26px;
+    }
+
+
+    .security-content {
+
+        width: 95%;
+    }
+
+
+    .security-card {
+
+        padding: 22px;
+    }
+
+
+    .security-table th,
+    .security-table td {
+
+        padding: 16px;
+    }
+}

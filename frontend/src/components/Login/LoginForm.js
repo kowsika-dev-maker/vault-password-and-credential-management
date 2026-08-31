@@ -44,11 +44,12 @@ function LoginForm() {
 
 
             /*
-             * Your backend should return:
+             * Backend response:
              *
              * {
              *   message: "Login Successful",
-             *   token: "JWT_TOKEN"
+             *   token: "JWT_TOKEN",
+             *   userId: 1
              * }
              */
 
@@ -73,19 +74,39 @@ function LoginForm() {
                 }
 
 
-                // Save JWT
+                // =============================================
+                // SAVE JWT TOKEN
+                // =============================================
+
                 localStorage.setItem(
                     "token",
                     token
                 );
 
 
-                // Save logged-in user's email
+                // =============================================
+                // SAVE LOGGED-IN USER EMAIL
+                // =============================================
+
                 localStorage.setItem(
                     "email",
                     formData.email
                 );
 
+
+                // =============================================
+                // SAVE LOGGED-IN USER ID
+                // =============================================
+
+                localStorage.setItem(
+                    "userId",
+                    response.data.userId
+                );
+
+
+                // =============================================
+                // DEBUG LOGS
+                // =============================================
 
                 console.log(
                     "JWT SAVED:",
@@ -95,6 +116,11 @@ function LoginForm() {
                 console.log(
                     "EMAIL SAVED:",
                     localStorage.getItem("email")
+                );
+
+                console.log(
+                    "USER ID SAVED:",
+                    localStorage.getItem("userId")
                 );
 
 

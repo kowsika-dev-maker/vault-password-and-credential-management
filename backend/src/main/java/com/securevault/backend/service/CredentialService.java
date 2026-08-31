@@ -9,6 +9,7 @@ import com.securevault.backend.repository.CredentialRepository;
 import com.securevault.backend.repository.CredentialShareRepository;
 import com.securevault.backend.repository.UserRepository;
 import com.securevault.backend.util.AESUtil;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,15 +20,23 @@ public class CredentialService {
     private final CredentialRepository credentialRepository;
     private final UserRepository userRepository;
     private final CredentialShareRepository credentialShareRepository;
+    private final AuditLogService auditLogService;
+
+
+    // =========================================================
+    // CONSTRUCTOR
+    // =========================================================
 
     public CredentialService(
             CredentialRepository credentialRepository,
             UserRepository userRepository,
-            CredentialShareRepository credentialShareRepository) {
+            CredentialShareRepository credentialShareRepository,
+            AuditLogService auditLogService) {
 
         this.credentialRepository = credentialRepository;
         this.userRepository = userRepository;
         this.credentialShareRepository = credentialShareRepository;
+        this.auditLogService = auditLogService;
     }
 
 
@@ -46,20 +55,41 @@ public class CredentialService {
             return "User not found";
         }
 
+
         Credential credential = new Credential();
 
-        credential.setWebsite(request.getWebsite());
+        credential.setWebsite(
+                request.getWebsite()
+        );
 
-        credential.setUsername(request.getUsername());
+        credential.setUsername(
+                request.getUsername()
+        );
+
 
         // Encrypt password before storing
         credential.setPassword(
-                AESUtil.encrypt(request.getPassword())
+                AESUtil.encrypt(
+                        request.getPassword()
+                )
         );
 
         credential.setUser(user);
 
         credentialRepository.save(credential);
+
+
+        // =====================================================
+        // AUDIT LOG
+        // =====================================================
+
+        auditLogService.createAuditLog(
+                request.getEmail(),
+                "CREDENTIAL_ADDED",
+                "New credential added for website: "
+                        + request.getWebsite()
+        );
+
 
         System.out.println(
                 "Credential saved successfully for user: "
@@ -90,10 +120,12 @@ public class CredentialService {
             return List.of();
         }
 
+
         List<Credential> credentials =
                 credentialRepository.findByUserId(
                         user.getId()
                 );
+
 
         System.out.println(
                 "======================================"
@@ -113,7 +145,10 @@ public class CredentialService {
         );
 
 
-        // Decrypt every password
+        // =====================================================
+        // DECRYPT PASSWORDS
+        // =====================================================
+
         for (Credential credential : credentials) {
 
             System.out.println(
@@ -248,7 +283,8 @@ public class CredentialService {
 
             return performUpdate(
                     credential,
-                    request
+                    request,
+                    requesterEmail
             );
         }
 
@@ -280,7 +316,8 @@ public class CredentialService {
 
             return performUpdate(
                     credential,
-                    request
+                    request,
+                    requesterEmail
             );
         }
 
@@ -296,7 +333,8 @@ public class CredentialService {
 
     private String performUpdate(
             Credential credential,
-            UpdateCredentialRequest request) {
+            UpdateCredentialRequest request,
+            String requesterEmail) {
 
         credential.setWebsite(
                 request.getWebsite()
@@ -317,6 +355,18 @@ public class CredentialService {
 
         credentialRepository.save(
                 credential
+        );
+
+
+        // =====================================================
+        // AUDIT LOG
+        // =====================================================
+
+        auditLogService.createAuditLog(
+                requesterEmail,
+                "CREDENTIAL_UPDATED",
+                "Credential updated for website: "
+                        + request.getWebsite()
         );
 
 
@@ -358,6 +408,14 @@ public class CredentialService {
 
 
         // =====================================================
+        // SAVE WEBSITE BEFORE DELETE
+        // =====================================================
+
+        String website =
+                credential.getWebsite();
+
+
+        // =====================================================
         // OWNER
         // =====================================================
 
@@ -369,6 +427,19 @@ public class CredentialService {
             credentialRepository.delete(
                     credential
             );
+
+
+            // =================================================
+            // AUDIT LOG
+            // =================================================
+
+            auditLogService.createAuditLog(
+                    requesterEmail,
+                    "CREDENTIAL_DELETED",
+                    "Credential deleted for website: "
+                            + website
+            );
+
 
             return "Credential Deleted Successfully";
         }
@@ -395,12 +466,24 @@ public class CredentialService {
                 share.getPermission();
 
 
-        // Only FULL_MANAGEMENT can delete
+        // =====================================================
+        // FULL MANAGEMENT
+        // =====================================================
+
         if ("FULL_MANAGEMENT".equals(permission)) {
 
             credentialRepository.delete(
                     credential
             );
+
+
+            auditLogService.createAuditLog(
+                    requesterEmail,
+                    "CREDENTIAL_DELETED",
+                    "Shared credential deleted for website: "
+                            + website
+            );
+
 
             return "Credential Deleted Successfully";
         }
@@ -417,10 +500,6 @@ public class CredentialService {
 
     // =========================================================
     // OLD DELETE METHOD
-    // =========================================================
-    //
-    // Kept so existing code does not suddenly break.
-    //
     // =========================================================
 
     public String deleteCredential(Long id) {
