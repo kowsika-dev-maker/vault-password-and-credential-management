@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../../services/api";
 import "./Sharing.css";
+import Header from "../Common/Header";
 
 function SharedCredentials() {
 
@@ -400,7 +401,11 @@ function SharedCredentials() {
 
     return (
 
-        <div className="shared-container">
+        <div className="shared-page">
+
+            <Header />
+
+            <div className="shared-container">
 
             <h2>
                 Shared With Me
@@ -672,7 +677,9 @@ function SharedCredentials() {
 
         </div>
 
-    );
+    </div>
+
+);
 
 }
 

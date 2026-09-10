@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 import API from "../../services/api";
+import Header from "../Common/Header";
+
 import "./Credentials.css";
 
 function Credentials() {
@@ -8,12 +11,12 @@ function Credentials() {
     const navigate = useNavigate();
 
     const [credentials, setCredentials] = useState([]);
-
     const [visiblePasswords, setVisiblePasswords] = useState({});
+    const [searchTerm, setSearchTerm] = useState("");
 
 
     // =========================================================
-    // LOAD CREDENTIALS
+    // CHECK LOGIN + LOAD CREDENTIALS
     // =========================================================
 
     useEffect(() => {
@@ -21,9 +24,7 @@ function Credentials() {
         const token = localStorage.getItem("token");
 
         if (!token) {
-
             navigate("/");
-
             return;
         }
 
@@ -32,26 +33,34 @@ function Credentials() {
     }, [navigate]);
 
 
+    // =========================================================
+    // LOAD CREDENTIALS
+    // =========================================================
+
     const loadCredentials = async () => {
 
         try {
 
             const email = localStorage.getItem("email");
 
-            const response = await API.get(
-                "/credentials/all/" + email
-            );
+            const response =
+                await API.get(
+                    "/credentials/all/" + email
+                );
 
             setCredentials(response.data);
 
         } catch (error) {
 
-            console.log(error);
+            console.error(
+                "Unable to load credentials:",
+                error
+            );
 
-            alert("Unable to load credentials");
-
+            alert(
+                "Unable to load your credentials. Please try again."
+            );
         }
-
     };
 
 
@@ -62,13 +71,9 @@ function Credentials() {
     const togglePassword = (id) => {
 
         setVisiblePasswords((previous) => ({
-
             ...previous,
-
             [id]: !previous[id]
-
         }));
-
     };
 
 
@@ -78,40 +83,65 @@ function Credentials() {
 
     const handleDelete = async (id) => {
 
+        const confirmed =
+            window.confirm(
+                "Are you sure you want to delete this credential?"
+            );
+
+        if (!confirmed) {
+            return;
+        }
+
         try {
 
             await API.delete(
                 "/credentials/delete/" + id
             );
 
-            alert("Credential Deleted Successfully");
+            alert(
+                "Credential deleted successfully."
+            );
 
             loadCredentials();
 
         } catch (error) {
 
-            console.log(error);
+            console.error(
+                "Failed to delete credential:",
+                error
+            );
 
-            alert("Failed to Delete Credential");
-
+            alert(
+                "Failed to delete credential. Please try again."
+            );
         }
-
     };
 
 
     // =========================================================
-    // LOGOUT
+    // SEARCH
     // =========================================================
 
-    const handleLogout = () => {
+    const filteredCredentials =
+        credentials.filter((credential) => {
 
-        localStorage.removeItem("token");
+            const search =
+                searchTerm.toLowerCase().trim();
 
-        localStorage.removeItem("email");
+            if (!search) {
+                return true;
+            }
 
-        navigate("/");
-
-    };
+            return (
+                credential.website
+                    ?.toLowerCase()
+                    .includes(search)
+                ||
+                credential.username
+                    ?.toLowerCase()
+                    .includes(search)
+            );
+        });
 
 
     // =========================================================
@@ -122,310 +152,254 @@ function Credentials() {
 
         <div className="credentials-container">
 
-            <div className="credentials-box">
+            {/* =================================================
+                COMMON RESPONSIVE HEADER
+            ================================================= */}
+
+            <Header />
 
 
-                {/* =================================================
-                    HEADER
-                ================================================= */}
+            {/* =================================================
+                MAIN CONTENT
+            ================================================= */}
 
-                <div className="credentials-header">
+            <main className="credentials-content">
 
-                    <div>
+                <div className="credentials-box">
+
+
+                    {/* =================================================
+                        PAGE TITLE
+                    ================================================= */}
+
+                    <section className="credentials-title">
 
                         <h1>
-                            SecureVault
+                            Password Vault
                         </h1>
 
                         <p>
-                            Password Vault
+                            Manage your saved credentials securely.
                         </p>
+
+                    </section>
+
+
+                    {/* =================================================
+                        TOP BAR
+                    ================================================= */}
+
+                    <div className="top-bar">
+
+                        <input
+                            type="text"
+                            value={searchTerm}
+                            onChange={(event) =>
+                                setSearchTerm(event.target.value)
+                            }
+                            placeholder="Search website or username..."
+                            aria-label="Search credentials"
+                        />
+
+
+                        <Link to="/add-credential">
+
+                            <button
+                                type="button"
+                                className="add-btn"
+                            >
+                                + Add Credential
+                            </button>
+
+                        </Link>
+
+
+                        <button
+                            type="button"
+                            className="add-btn"
+                            onClick={() =>
+                                navigate("/shared-credentials")
+                            }
+                        >
+                            Shared With Me
+                        </button>
 
                     </div>
 
 
-                    <button
-                        className="logout-btn"
-                        onClick={handleLogout}
-                    >
-                        Logout
-                    </button>
+                    {/* =================================================
+                        CREDENTIAL TABLE
+                    ================================================= */}
 
-                </div>
+                    <div className="table-container">
 
+                        <table>
 
-                {/* =================================================
-                    NAVIGATION
-                ================================================= */}
-
-                <div className="credentials-navigation">
-
-                    <button
-                        onClick={() =>
-                            navigate("/dashboard")
-                        }
-                    >
-                        Dashboard
-                    </button>
-
-
-                    <button
-                        className="active"
-                        onClick={() =>
-                            navigate("/credentials")
-                        }
-                    >
-                        Credentials
-                    </button>
-
-
-                    <button
-                        onClick={() =>
-                            navigate("/security")
-                        }
-                    >
-                        Security
-                    </button>
-
-
-                    <button
-                        onClick={() =>
-                            navigate("/profile")
-                        }
-                    >
-                        Profile
-                    </button>
-
-                </div>
-
-
-                {/* =================================================
-                    TITLE
-                ================================================= */}
-
-                <div className="credentials-title">
-
-                    <h2>
-                        Password Vault
-                    </h2>
-
-                    <p>
-                        Manage your saved credentials securely.
-                    </p>
-
-                </div>
-
-
-                {/* =================================================
-                    TOP BAR
-                ================================================= */}
-
-                <div className="top-bar">
-
-                    <input
-                        type="text"
-                        placeholder="Search Website..."
-                    />
-
-
-                    <Link to="/add-credential">
-
-                        <button className="add-btn">
-                            + Add Credential
-                        </button>
-
-                    </Link>
-
-
-                    <button
-                        className="add-btn"
-                        onClick={() =>
-                            navigate("/shared-credentials")
-                        }
-                    >
-                        Shared With Me
-                    </button>
-
-                </div>
-
-
-                {/* =================================================
-                    CREDENTIAL TABLE
-                ================================================= */}
-
-                <div className="table-container">
-
-                    <table>
-
-                        <thead>
-
-                            <tr>
-
-                                <th>
-                                    Website
-                                </th>
-
-                                <th>
-                                    Username
-                                </th>
-
-                                <th>
-                                    Password
-                                </th>
-
-                                <th>
-                                    Actions
-                                </th>
-
-                            </tr>
-
-                        </thead>
-
-
-                        <tbody>
-
-                            {credentials.length === 0 ? (
+                            <thead>
 
                                 <tr>
 
-                                    <td
-                                        colSpan="4"
-                                        className="no-credentials"
-                                    >
-                                        No Credentials Found
-                                    </td>
+                                    <th>
+                                        Website
+                                    </th>
+
+                                    <th>
+                                        Username
+                                    </th>
+
+                                    <th>
+                                        Password
+                                    </th>
+
+                                    <th>
+                                        Actions
+                                    </th>
 
                                 </tr>
 
-                            ) : (
+                            </thead>
 
-                                credentials.map(
-                                    (credential) => (
 
-                                        <tr
-                                            key={credential.id}
+                            <tbody>
+
+                                {filteredCredentials.length === 0 ? (
+
+                                    <tr>
+
+                                        <td
+                                            colSpan="4"
+                                            className="no-credentials"
                                         >
+                                            {searchTerm
+                                                ? "No matching credentials found."
+                                                : "No credentials found."
+                                            }
+                                        </td>
 
-                                            {/* WEBSITE */}
+                                    </tr>
 
-                                            <td>
-                                                {credential.website}
-                                            </td>
+                                ) : (
+
+                                    filteredCredentials.map(
+                                        (credential) => (
+
+                                            <tr
+                                                key={credential.id}
+                                            >
+
+                                                <td>
+                                                    {credential.website}
+                                                </td>
 
 
-                                            {/* USERNAME */}
-
-                                            <td>
-                                                {credential.username}
-                                            </td>
+                                                <td>
+                                                    {credential.username}
+                                                </td>
 
 
-                                            {/* PASSWORD */}
+                                                <td>
 
-                                            <td>
+                                                    <div className="password-display">
 
-                                                <div className="password-display">
+                                                        <span>
 
-                                                    <span>
-
-                                                        {
-                                                            visiblePasswords[
+                                                            {visiblePasswords[
                                                                 credential.id
                                                             ]
                                                                 ? credential.password
                                                                 : "••••••••"
-                                                        }
+                                                            }
 
-                                                    </span>
+                                                        </span>
 
 
-                                                    <button
-                                                        type="button"
-                                                        className="password-toggle-btn"
-                                                        onClick={() =>
-                                                            togglePassword(
-                                                                credential.id
-                                                            )
-                                                        }
-                                                    >
+                                                        <button
+                                                            type="button"
+                                                            className="password-toggle-btn"
+                                                            onClick={() =>
+                                                                togglePassword(
+                                                                    credential.id
+                                                                )
+                                                            }
+                                                        >
 
-                                                        {
-                                                            visiblePasswords[
+                                                            {visiblePasswords[
                                                                 credential.id
                                                             ]
                                                                 ? "Hide"
                                                                 : "Show"
-                                                        }
+                                                            }
 
+                                                        </button>
+
+                                                    </div>
+
+                                                </td>
+
+
+                                                <td>
+
+                                                    <button
+                                                        type="button"
+                                                        className="edit-btn"
+                                                        onClick={() =>
+                                                            navigate(
+                                                                "/edit-credential/" +
+                                                                credential.id
+                                                            )
+                                                        }
+                                                    >
+                                                        Edit
                                                     </button>
 
-                                                </div>
 
-                                            </td>
-
-
-                                            {/* ACTIONS */}
-
-                                            <td>
-
-                                                <button
-                                                    className="edit-btn"
-                                                    onClick={() =>
-                                                        navigate(
-                                                            "/edit-credential/" +
-                                                            credential.id
-                                                        )
-                                                    }
-                                                >
-                                                    Edit
-                                                </button>
+                                                    <button
+                                                        type="button"
+                                                        className="share-btn"
+                                                        onClick={() =>
+                                                            navigate(
+                                                                "/share-credential/" +
+                                                                credential.id
+                                                            )
+                                                        }
+                                                    >
+                                                        Share
+                                                    </button>
 
 
-                                                <button
-                                                    className="share-btn"
-                                                    onClick={() =>
-                                                        navigate(
-                                                            "/share-credential/" +
-                                                            credential.id
-                                                        )
-                                                    }
-                                                >
-                                                    Share
-                                                </button>
+                                                    <button
+                                                        type="button"
+                                                        className="delete-btn"
+                                                        onClick={() =>
+                                                            handleDelete(
+                                                                credential.id
+                                                            )
+                                                        }
+                                                    >
+                                                        Delete
+                                                    </button>
 
+                                                </td>
 
-                                                <button
-                                                    className="delete-btn"
-                                                    onClick={() =>
-                                                        handleDelete(
-                                                            credential.id
-                                                        )
-                                                    }
-                                                >
-                                                    Delete
-                                                </button>
+                                            </tr>
 
-                                            </td>
-
-                                        </tr>
-
+                                        )
                                     )
-                                )
 
-                            )}
+                                )}
 
-                        </tbody>
+                            </tbody>
 
-                    </table>
+                        </table>
+
+                    </div>
 
                 </div>
 
-            </div>
+            </main>
 
         </div>
-
     );
-
 }
 
 export default Credentials;

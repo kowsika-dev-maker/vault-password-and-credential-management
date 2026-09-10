@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import API from "../../services/api";
 import "./Sharing.css";
+import Header from "../Common/Header";
 
 function ShareCredential() {
 
@@ -155,7 +156,11 @@ function ShareCredential() {
 
     return (
 
-        <div className="sharing-container">
+        <div className="sharing-page">
+
+            <Header />
+
+            <div className="sharing-container">
 
             <div className="sharing-box">
 
@@ -215,7 +220,9 @@ function ShareCredential() {
 
         </div>
 
-    );
+    </div>
+
+);
 
 }
 

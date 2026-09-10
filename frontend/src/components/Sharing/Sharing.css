@@ -14,16 +14,26 @@ body {
     color: #29213d;
 }
 
+.sharing-page,
+.shared-page {
+    min-height: 100vh;
+    background: #ffffff;
+    width: 100%;
+}
+
 
 /* =========================================================
    SHARE CREDENTIAL PAGE
 ========================================================= */
 
 .sharing-container {
-    min-height: 100vh;
+    min-height: calc(100vh - 68px);
     width: 100%;
-    padding: 40px;
+    padding: 40px 20px;
     background: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 
@@ -33,17 +43,14 @@ body {
 
 .sharing-box {
     width: 100%;
-    max-width: 600px;
-    margin: 40px auto;
-
-    padding: 40px;
-
+    max-width: 550px;
+    margin: 20px auto;
+    padding: 36px 30px;
     background: #ffffff;
-
     border: 1px solid #e2d6f3;
     border-radius: 14px;
-
     box-shadow: 0 6px 20px rgba(91, 33, 182, 0.10);
+    box-sizing: border-box;
 }
 
 
@@ -52,13 +59,10 @@ body {
 ========================================================= */
 
 .sharing-box h2 {
-    margin: 0 0 30px;
-
+    margin: 0 0 24px;
     text-align: center;
-
     color: #6d28d9;
-
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 700;
 }
 
@@ -74,69 +78,31 @@ body {
 
 
 /* =========================================================
-   INPUT
+   INPUT & SELECT
 ========================================================= */
 
-.sharing-box input {
+.sharing-box input,
+.sharing-box select {
     width: 100%;
-    height: 52px;
-
+    height: 48px;
     padding: 0 16px;
-
-    margin-bottom: 20px;
-
+    margin-bottom: 18px;
     border: 1px solid #d8c9ec;
     border-radius: 8px;
-
     background: #ffffff;
-
     color: #29213d;
-
     font-size: 15px;
-
     outline: none;
+    box-sizing: border-box;
 }
 
 .sharing-box input::placeholder {
     color: #9990a8;
 }
 
-.sharing-box input:focus {
-    border-color: #7c3aed;
-
-    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.10);
-}
-
-
-/* =========================================================
-   SELECT
-========================================================= */
-
-.sharing-box select {
-    width: 100%;
-    height: 52px;
-
-    padding: 0 16px;
-
-    margin-bottom: 22px;
-
-    border: 1px solid #d8c9ec;
-    border-radius: 8px;
-
-    background: #ffffff;
-
-    color: #29213d;
-
-    font-size: 15px;
-
-    outline: none;
-
-    cursor: pointer;
-}
-
+.sharing-box input:focus,
 .sharing-box select:focus {
     border-color: #7c3aed;
-
     box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.10);
 }
 
@@ -147,20 +113,14 @@ body {
 
 .sharing-box button {
     width: 100%;
-    height: 52px;
-
+    height: 48px;
     border: none;
     border-radius: 8px;
-
     background: #7c3aed;
-
     color: #ffffff;
-
     font-size: 16px;
     font-weight: 600;
-
     cursor: pointer;
-
     transition: 0.2s ease;
 }
 
@@ -178,12 +138,12 @@ body {
 ========================================================= */
 
 .shared-container {
-    min-height: 100vh;
+    min-height: calc(100vh - 68px);
     width: 100%;
-
-    padding: 40px;
-
-    background: #ffffff;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 34px 24px;
+    box-sizing: border-box;
 }
 
 
@@ -192,11 +152,9 @@ body {
 ========================================================= */
 
 .shared-container h2 {
-    margin: 0 0 25px;
-
+    margin: 0 0 20px;
     color: #5b21b6;
-
-    font-size: 30px;
+    font-size: 28px;
     font-weight: 700;
 }
 
@@ -206,21 +164,16 @@ body {
 ========================================================= */
 
 .shared-container > button {
-    padding: 11px 20px;
-
-    margin-bottom: 30px;
-
+    padding: 10px 18px;
+    margin-bottom: 24px;
     border: none;
     border-radius: 7px;
-
     background: #7c3aed;
-
     color: #ffffff;
-
     font-size: 14px;
     font-weight: 600;
-
     cursor: pointer;
+    transition: background 0.2s ease;
 }
 
 .shared-container > button:hover {
@@ -229,22 +182,17 @@ body {
 
 
 /* =========================================================
-   TABLE
+   TABLE & OVERFLOW WRAPPER
 ========================================================= */
 
 .shared-container table {
     width: 100%;
-
+    min-width: 750px;
     border-collapse: collapse;
-
     background: #ffffff;
-
     border: 1px solid #d9cbea;
-
     border-radius: 10px;
-
     overflow: hidden;
-
     box-shadow: 0 4px 15px rgba(91, 33, 182, 0.08);
 }
 
@@ -254,17 +202,13 @@ body {
 ========================================================= */
 
 .shared-container th {
-    padding: 18px 20px;
-
+    padding: 14px 16px;
     background: #6d28d9;
-
     color: #ffffff;
-
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
-
     text-align: left;
-
+    white-space: nowrap;
     border-right: 1px solid #8b5cf6;
 }
 
@@ -299,18 +243,12 @@ body {
 ========================================================= */
 
 .shared-container td {
-    padding: 20px;
-
-    min-height: 65px;
-
+    padding: 14px 16px;
     color: #3d354c;
-
-    font-size: 15px;
-
+    font-size: 14px;
     text-align: left;
-
     vertical-align: middle;
-
+    white-space: nowrap;
     border-right: 1px solid #e4dcef;
 }
 
@@ -319,90 +257,25 @@ body {
 }
 
 
-/* =========================================================
-   WEBSITE
-========================================================= */
-
-.shared-container td:first-child {
-    color: #5b21b6;
-
-    font-weight: 600;
-}
-
-
-/* =========================================================
-   USERNAME
-========================================================= */
-
-.shared-container td:nth-child(2) {
-    font-weight: 500;
-}
-
-
-/* =========================================================
-   PASSWORD
-========================================================= */
-
-.shared-container td:nth-child(3) {
-    font-family: "Consolas", "Courier New", monospace;
-
-    color: #40374d;
-
-    letter-spacing: 0.5px;
-}
-
-
-/* =========================================================
-   OWNER EMAIL
-========================================================= */
-
-.shared-container td:nth-child(4) {
-    color: #665c72;
-}
-
-
-/* =========================================================
-   PERMISSION
-========================================================= */
-
-.shared-container td:nth-child(5) {
-    font-weight: 600;
-}
-
-
-/* =========================================================
-   PERMISSION BADGES
-========================================================= */
+/* BADGES */
 
 .permission-badge {
     display: inline-block;
-
-    padding: 7px 14px;
-
+    padding: 5px 12px;
     border-radius: 20px;
-
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
 }
-
-
-/* View Only */
 
 .permission-view {
     background: #ede9fe;
     color: #6d28d9;
 }
 
-
-/* Edit */
-
 .permission-edit {
     background: #fef3c7;
     color: #a16207;
 }
-
-
-/* Full Management */
 
 .permission-full {
     background: #dcfce7;
@@ -410,28 +283,19 @@ body {
 }
 
 
-/* =========================================================
-   ACTION BUTTONS
-========================================================= */
+/* ACTION BUTTONS */
 
 .shared-action-button {
-    padding: 9px 16px;
-
-    margin-right: 8px;
-
+    padding: 7px 12px;
+    margin-right: 6px;
     border: none;
-    border-radius: 7px;
-
+    border-radius: 6px;
     color: #ffffff;
-
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
-
     cursor: pointer;
+    white-space: nowrap;
 }
-
-
-/* Edit */
 
 .edit-button {
     background: #f59e0b;
@@ -441,9 +305,6 @@ body {
     background: #d97706;
 }
 
-
-/* Management */
-
 .manage-button {
     background: #7c3aed;
 }
@@ -451,9 +312,6 @@ body {
 .manage-button:hover {
     background: #6d28d9;
 }
-
-
-/* Delete */
 
 .delete-button {
     background: #ef4444;
@@ -464,28 +322,18 @@ body {
 }
 
 
-/* =========================================================
-   NO SHARED CREDENTIALS
-========================================================= */
+/* NO SHARED CREDENTIALS */
 
 .shared-container > p {
     width: 100%;
-
-    padding: 30px;
-
+    padding: 24px;
     margin-top: 20px;
-
     text-align: center;
-
     background: #faf8ff;
-
     border: 1px solid #e3d8f2;
-
     border-radius: 8px;
-
     color: #71677d;
-
-    font-size: 16px;
+    font-size: 15px;
 }
 
 
@@ -494,35 +342,37 @@ body {
 ========================================================= */
 
 @media (max-width: 900px) {
-
     .shared-container {
-        padding: 25px 20px;
-
+        padding: 24px 16px;
         overflow-x: auto;
     }
 
     .shared-container table {
-        min-width: 900px;
+        min-width: 700px;
     }
 }
 
-
 @media (max-width: 600px) {
-
     .sharing-container {
-        padding: 20px;
+        padding: 20px 12px;
     }
 
     .sharing-box {
-        padding: 30px 20px;
-        margin: 20px auto;
+        padding: 24px 18px;
+        margin: 10px auto;
+        border-radius: 10px;
+    }
+
+    .sharing-box h2 {
+        font-size: 22px;
+        margin-bottom: 18px;
     }
 
     .shared-container {
-        padding: 25px 15px;
+        padding: 16px 12px;
     }
 
     .shared-container h2 {
-        font-size: 25px;
+        font-size: 22px;
     }
 }

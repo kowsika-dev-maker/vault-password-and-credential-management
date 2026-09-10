@@ -4,6 +4,8 @@ import com.securevault.backend.entity.Credential;
 import com.securevault.backend.entity.LoginActivity;
 import com.securevault.backend.repository.CredentialRepository;
 import com.securevault.backend.repository.LoginActivityRepository;
+import com.securevault.backend.util.AESUtil;
+
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -15,7 +17,7 @@ public class ReportService {
 
     private final CredentialRepository credentialRepository;
     private final LoginActivityRepository loginActivityRepository;
-
+    private final NotificationService notificationService;
 
     // =========================================================
     // CONSTRUCTOR
@@ -23,12 +25,13 @@ public class ReportService {
 
     public ReportService(
             CredentialRepository credentialRepository,
-            LoginActivityRepository loginActivityRepository) {
+            LoginActivityRepository loginActivityRepository,
+            NotificationService notificationService) {
 
         this.credentialRepository = credentialRepository;
         this.loginActivityRepository = loginActivityRepository;
+        this.notificationService = notificationService;
     }
-
 
     // =========================================================
     // PASSWORD HEALTH REPORT
@@ -39,13 +42,11 @@ public class ReportService {
         List<Credential> credentials =
                 credentialRepository.findByUserId(userId);
 
-
         int totalCredentials = credentials.size();
 
         int strongPasswords = 0;
         int mediumPasswords = 0;
         int weakPasswords = 0;
-
 
         // =====================================================
         // ANALYZE PASSWORD STRENGTH
@@ -53,18 +54,64 @@ public class ReportService {
 
         for (Credential credential : credentials) {
 
-            String password = credential.getPassword();
+            String encryptedPassword =
+                    credential.getPassword();
 
-            if (password == null || password.isEmpty()) {
+            // -------------------------------------------------
+            // EMPTY PASSWORD
+            // -------------------------------------------------
+
+            if (encryptedPassword == null
+                    || encryptedPassword.isEmpty()) {
 
                 weakPasswords++;
 
                 continue;
             }
 
+            // -------------------------------------------------
+            // DECRYPT PASSWORD
+            // -------------------------------------------------
 
-            int score = calculatePasswordScore(password);
+            String password;
 
+            try {
+
+                password =
+                        AESUtil.decrypt(
+                                encryptedPassword
+                        );
+
+            } catch (Exception e) {
+
+                System.out.println(
+                        "Password decryption failed for credential ID: "
+                                + credential.getId()
+                );
+
+                weakPasswords++;
+
+                continue;
+            }
+
+            // -------------------------------------------------
+            // CHECK DECRYPTED PASSWORD
+            // -------------------------------------------------
+
+            if (password == null
+                    || password.isEmpty()) {
+
+                weakPasswords++;
+
+                continue;
+            }
+
+            // -------------------------------------------------
+            // CALCULATE PASSWORD SCORE
+            // -------------------------------------------------
+
+            int score =
+                    calculatePasswordScore(password);
 
             if (score >= 4) {
 
@@ -80,7 +127,6 @@ public class ReportService {
             }
         }
 
-
         // =====================================================
         // HEALTH SCORE
         // =====================================================
@@ -95,7 +141,6 @@ public class ReportService {
                             / totalCredentials;
         }
 
-
         // =====================================================
         // SUMMARY
         // =====================================================
@@ -104,25 +149,46 @@ public class ReportService {
 
         if (totalCredentials == 0) {
 
-            summary = "No credentials available";
+            summary =
+                    "No credentials available";
 
         } else if (healthScore >= 80) {
 
-            summary = "Excellent password health";
+            summary =
+                    "Excellent password health";
 
         } else if (healthScore >= 60) {
 
-            summary = "Good password health";
+            summary =
+                    "Good password health";
 
         } else if (healthScore >= 40) {
 
-            summary = "Moderate password health";
+            summary =
+                    "Moderate password health";
 
         } else {
 
-            summary = "Weak password health";
+            summary =
+                    "Weak password health";
         }
 
+        // =====================================================
+        // PASSWORD HEALTH NOTIFICATION
+        // =====================================================
+
+        if (totalCredentials > 0
+                && healthScore < 60) {
+
+            notificationService.createNotification(
+                    userId,
+                    "PASSWORD_HEALTH",
+                    "Password Health Alert",
+                    "Your password health score is "
+                            + healthScore
+                            + "%. Please review your weak or medium-strength credentials."
+            );
+        }
 
         // =====================================================
         // RESPONSE
@@ -161,63 +227,66 @@ public class ReportService {
                 summary
         );
 
-
         return report;
     }
-
 
     // =========================================================
     // PASSWORD STRENGTH CALCULATOR
     // =========================================================
 
-    private int calculatePasswordScore(String password) {
+    private int calculatePasswordScore(
+            String password) {
 
         int score = 0;
 
-
-        // Length
+        // -----------------------------------------------------
+        // LENGTH
+        // -----------------------------------------------------
 
         if (password.length() >= 8) {
 
             score++;
         }
 
-
-        // Uppercase
+        // -----------------------------------------------------
+        // UPPERCASE
+        // -----------------------------------------------------
 
         if (password.matches(".*[A-Z].*")) {
 
             score++;
         }
 
-
-        // Lowercase
+        // -----------------------------------------------------
+        // LOWERCASE
+        // -----------------------------------------------------
 
         if (password.matches(".*[a-z].*")) {
 
             score++;
         }
 
-
-        // Number
+        // -----------------------------------------------------
+        // NUMBER
+        // -----------------------------------------------------
 
         if (password.matches(".*[0-9].*")) {
 
             score++;
         }
 
+        // -----------------------------------------------------
+        // SPECIAL CHARACTER
+        // -----------------------------------------------------
 
-        // Special character
-
-        if (password.matches(".*[^a-zA-Z0-9].*")) {
+        if (password.matches(
+                ".*[^a-zA-Z0-9].*")) {
 
             score++;
         }
 
-
         return score;
     }
-
 
     // =========================================================
     // LOGIN ACTIVITY REPORT
@@ -228,8 +297,9 @@ public class ReportService {
 
         List<LoginActivity> activities =
                 loginActivityRepository
-                        .findByEmailOrderByLoginTimeDesc(email);
-
+                        .findByEmailOrderByLoginTimeDesc(
+                                email
+                        );
 
         int totalAttempts =
                 activities.size();
@@ -237,7 +307,6 @@ public class ReportService {
         int successfulLogins = 0;
 
         int failedLogins = 0;
-
 
         // =====================================================
         // CALCULATE LOGIN STATISTICS
@@ -256,7 +325,6 @@ public class ReportService {
                 failedLogins++;
             }
         }
-
 
         // =====================================================
         // RESPONSE
@@ -284,7 +352,6 @@ public class ReportService {
                 "recentActivities",
                 activities
         );
-
 
         return report;
     }

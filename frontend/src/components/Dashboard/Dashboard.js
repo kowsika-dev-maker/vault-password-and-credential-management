@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import API from "../../services/api";
-import Navbar from "../Navbar/Navbar";
+import Header from "../Common/Header";
 
 import "./Dashboard.css";
 
@@ -70,10 +70,10 @@ function Dashboard() {
 
 
             {/* =================================================
-                COMMON NAVBAR
+                COMMON RESPONSIVE HEADER
             ================================================= */}
 
-            <Navbar />
+            <Header />
 
 
             {/* =================================================

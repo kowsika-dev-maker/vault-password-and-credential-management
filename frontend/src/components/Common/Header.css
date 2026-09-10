@@ -1,29 +1,61 @@
 /* =========================================================
-   HEADER
+   SECUREVAULT - COMMON RESPONSIVE HEADER
+   Desktop / Laptop / Tablet / Mobile
+========================================================= */
+
+
+/* =========================================================
+   BOX SIZING
+========================================================= */
+
+.main-header,
+.main-header *,
+.main-header *::before,
+.main-header *::after {
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   MAIN HEADER
 ========================================================= */
 
 .main-header {
-
     width: 100%;
-
-    height: 88px;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
 
     background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
 
-    border-bottom: 1px solid #eee8f7;
+    position: sticky;
+    top: 0;
+    left: 0;
+
+    z-index: 9999;
+    overflow: visible;
+}
+
+
+/* =========================================================
+   HEADER INNER
+========================================================= */
+
+.header-inner {
+    width: 100%;
+    max-width: 1400px;
+    min-height: 68px;
+
+    margin: 0 auto;
+    padding: 0 24px;
 
     display: flex;
-
     align-items: center;
 
-    padding: 0 48px;
-
-    box-sizing: border-box;
+    gap: 20px;
 
     position: relative;
-
-    z-index: 1000;
-
 }
 
 
@@ -32,40 +64,80 @@
 ========================================================= */
 
 .header-logo {
+    flex: 0 0 auto;
 
-    font-size: 26px;
+    display: flex;
+    align-items: center;
 
-    font-weight: 800;
+    gap: 6px;
 
-    color: #6424d6;
+    margin: 0;
+    padding: 6px 0;
 
-    letter-spacing: -0.7px;
+    color: #6d28d9;
+
+    font-family: inherit;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.2;
+
+    white-space: nowrap;
 
     cursor: pointer;
 
-    min-width: 180px;
+    -webkit-user-select: none;
+    user-select: none;
 
-  
+    transition: color 0.2s ease;
+}
 
+.header-logo:hover {
+    color: #5b21b6;
 }
 
 
 /* =========================================================
-   NAVIGATION
+   LOGO MAIN
 ========================================================= */
 
-.header-navigation {
+.logo-main {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   LOGO SUBTITLE
+========================================================= */
+
+.logo-subtitle {
+    display: inline-block;
+
+    color: #6b7280;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   MAIN NAVIGATION
+========================================================= */
+
+.header-nav {
+    flex: 1 1 auto;
+    min-width: 0;
 
     display: flex;
-
     align-items: center;
+    justify-content: flex-end;
 
-    gap: 8px;
+    gap: 5px;
 
-    margin-left: 30px;
-
-    height: 100%;
-
+    margin: 0;
+    padding: 0;
 }
 
 
@@ -73,72 +145,64 @@
    NORMAL NAVIGATION LINKS
 ========================================================= */
 
-.header-link {
+.header-nav-link {
+    flex: 0 0 auto;
 
-    height: 44px;
-
-    padding: 0 20px;
-
-    display: flex;
-
+    display: inline-flex;
     align-items: center;
-
     justify-content: center;
+
+    min-height: 40px;
+
+    margin: 0;
+    padding: 8px 13px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: #374151;
 
     text-decoration: none;
 
-    color: #292334;
-
-    font-size: 15px;
-
+    font-family: inherit;
+    font-size: 14px;
     font-weight: 500;
+    line-height: 1.2;
 
-    border-radius: 9px;
+    white-space: nowrap;
+
+    cursor: pointer;
 
     transition:
-        background 0.2s ease,
-        color 0.2s ease,
-        transform 0.2s ease;
-
+        background-color 0.2s ease,
+        color 0.2s ease;
 }
 
-
-.header-link:hover {
-
-    color: #6424d6;
-
-    background: #f6f1ff;
-
+.header-nav-link:hover {
+    background: #f5f3ff;
+    color: #6d28d9;
 }
 
-
-.header-link.active {
-
-    background: #7027dc;
-
-    color: #ffffff;
-
+.header-nav-link.active {
+    background: #ede9fe;
+    color: #6d28d9;
     font-weight: 600;
-
-    box-shadow: 0 5px 14px rgba(112, 39, 220, 0.20);
-
 }
 
 
 /* =========================================================
-   SECURITY DROPDOWN CONTAINER
+   SECURITY DROPDOWN
 ========================================================= */
 
 .security-dropdown {
+    flex: 0 0 auto;
 
     position: relative;
 
-    height: 100%;
-
-    display: flex;
-
-    align-items: center;
-
+    margin: 0;
+    padding: 0;
 }
 
 
@@ -147,411 +211,1207 @@
 ========================================================= */
 
 .security-dropdown-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-    height: 44px;
+    gap: 6px;
 
-    padding: 0 18px;
+    min-height: 40px;
+
+    margin: 0;
+    padding: 8px 13px;
 
     border: none;
+    border-radius: 8px;
 
     background: transparent;
 
-    color: #292334;
+    color: #374151;
 
     font-family: inherit;
-
-    font-size: 15px;
-
+    font-size: 14px;
     font-weight: 500;
+    line-height: 1.2;
 
-    border-radius: 9px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 7px;
+    white-space: nowrap;
 
     cursor: pointer;
 
     transition:
-        background 0.2s ease,
-        color 0.2s ease,
-        box-shadow 0.2s ease;
-
+        background-color 0.2s ease,
+        color 0.2s ease;
 }
-
 
 .security-dropdown-button:hover {
-
-    background: #f6f1ff;
-
-    color: #6424d6;
-
+    background: #f5f3ff;
+    color: #6d28d9;
 }
 
-
-/* =========================================================
-   SECURITY ACTIVE
-========================================================= */
-
-.security-dropdown-button.security-active {
-
-    background: #7027dc;
-
-    color: #ffffff;
-
+.security-dropdown-button.active {
+    background: #ede9fe;
+    color: #6d28d9;
     font-weight: 600;
-
-    box-shadow:
-        0 5px 14px rgba(112, 39, 220, 0.20);
-
 }
 
 
 /* =========================================================
-   DROPDOWN ARROW
+   SECURITY ARROW
 ========================================================= */
 
-.dropdown-arrow {
+.security-arrow {
+    display: inline-block;
 
-    font-size: 13px;
-
-    line-height: 1;
+    font-size: 9px;
 
     transition: transform 0.2s ease;
-
 }
 
-
-.dropdown-arrow.open {
-
+.security-arrow.open {
     transform: rotate(180deg);
-
 }
 
 
 /* =========================================================
-   SECURITY DROPDOWN MENU
+   SECURITY MENU
 ========================================================= */
 
-.security-dropdown-menu {
-
+.security-menu {
     position: absolute;
 
-    top: calc(100% - 10px);
+    top: calc(100% + 8px);
+    right: 0;
 
-    left: 50%;
+    width: 280px;
+    max-width: calc(100vw - 24px);
 
-    transform: translateX(-50%);
-
-    width: 285px;
+    margin: 0;
+    padding: 7px;
 
     background: #ffffff;
 
-    border: 1px solid #e9e0f7;
-
-    border-radius: 12px;
-
-    padding: 8px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
 
     box-shadow:
-        0 14px 35px rgba(45, 25, 75, 0.14),
-        0 3px 8px rgba(45, 25, 75, 0.06);
+        0 10px 30px rgba(0, 0, 0, 0.12);
 
-    animation: securityDropdownOpen 0.18s ease-out;
+    display: flex;
+    flex-direction: column;
 
+    z-index: 10000;
 }
 
 
 /* =========================================================
-   DROPDOWN ANIMATION
+   SECURITY MENU LINK
 ========================================================= */
 
-@keyframes securityDropdownOpen {
-
-    from {
-
-        opacity: 0;
-
-        transform:
-            translateX(-50%)
-            translateY(-6px);
-
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            translateX(-50%)
-            translateY(0);
-
-    }
-
-}
-
-
-/* =========================================================
-   DROPDOWN ITEM
-========================================================= */
-
-.security-menu-item {
+.security-menu-link {
+    display: flex;
+    align-items: flex-start;
 
     width: 100%;
 
-    min-height: 64px;
+    margin: 0;
+    padding: 10px 12px;
 
     border: none;
+    border-radius: 7px;
 
     background: transparent;
 
-    border-radius: 9px;
-
-    padding: 10px 11px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
+    color: #374151;
 
     text-align: left;
 
-    cursor: pointer;
-
     font-family: inherit;
 
-    transition:
-        background 0.18s ease,
-        transform 0.18s ease;
+    cursor: pointer;
 
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
 }
 
+.security-menu-link:hover {
+    background: #f5f3ff;
+    color: #6d28d9;
+}
 
-.security-menu-item:hover {
-
-    background: #f7f3ff;
-
-    transform: translateX(2px);
-
+.security-menu-link.active {
+    background: #ede9fe;
+    color: #6d28d9;
 }
 
 
 /* =========================================================
-   MENU ICON
+   SECURITY MENU ICON
 ========================================================= */
 
 .security-menu-icon {
+    flex: 0 0 auto;
 
-    width: 36px;
+    width: 28px;
 
-    height: 36px;
+    margin-right: 8px;
 
-    flex-shrink: 0;
-
-    border-radius: 9px;
-
-    background: #f0e8ff;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    font-size: 17px;
-
+    font-size: 16px;
+    line-height: 1.3;
 }
 
 
 /* =========================================================
-   MENU CONTENT
+   SECURITY MENU CONTENT
 ========================================================= */
 
 .security-menu-content {
+    min-width: 0;
 
     display: flex;
-
     flex-direction: column;
 
     gap: 3px;
-
 }
-
 
 .security-menu-content strong {
-
-    color: #332744;
-
     font-size: 14px;
-
     font-weight: 600;
-
+    line-height: 1.3;
 }
 
-
 .security-menu-content small {
+    color: #6b7280;
 
-    color: #8a8294;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.4;
 
-    font-size: 11.5px;
-
-    line-height: 1.35;
-
+    white-space: normal;
 }
 
 
 /* =========================================================
-   RIGHT SIDE
+   HEADER RIGHT
 ========================================================= */
 
 .header-right {
-
-    margin-left: auto;
+    flex: 0 0 auto;
 
     display: flex;
-
     align-items: center;
 
+    gap: 8px;
+
+    margin: 0;
+    padding: 0;
 }
 
 
 /* =========================================================
-   LOGOUT BUTTON
+   NOTIFICATION CONTAINER
 ========================================================= */
 
-.logout-button {
+.notification-container {
+    position: relative;
 
-    border: none;
+    display: flex;
+    align-items: center;
+}
 
-    background: #ef3333;
 
-    color: #ffffff;
+/* =========================================================
+   NOTIFICATION BUTTON
+========================================================= */
 
+.notification-button {
+    position: relative;
+
+    width: 42px;
     height: 42px;
 
-    padding: 0 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    border-radius: 9px;
+    margin: 0;
+    padding: 0;
 
-    font-family: inherit;
+    border: none;
+    border-radius: 10px;
 
-    font-size: 14px;
+    background: transparent;
 
-    font-weight: 600;
+    color: #374151;
+
+    font-size: 21px;
+    line-height: 1;
 
     cursor: pointer;
 
     transition:
-        background 0.2s ease,
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-
+        background-color 0.2s ease,
+        transform 0.2s ease;
 }
 
-
-.logout-button:hover {
-
-    background: #d92727;
+.notification-button:hover {
+    background: #f5f3ff;
 
     transform: translateY(-1px);
-
-    box-shadow:
-        0 5px 12px rgba(239, 51, 51, 0.20);
-
 }
 
-
-.logout-button:active {
-
-    transform: translateY(0);
-
+.notification-button:active {
+    transform: scale(0.96);
 }
 
 
 /* =========================================================
-   RESPONSIVE
+   UNREAD BADGE
+========================================================= */
+
+.notification-badge {
+    position: absolute;
+
+    top: -3px;
+    right: -3px;
+
+    min-width: 19px;
+    height: 19px;
+
+    padding: 0 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 20px;
+
+    background: #ef4444;
+    color: #ffffff;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    line-height: 1;
+
+    border: 2px solid #ffffff;
+
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+
+    z-index: 2;
+}
+
+
+/* =========================================================
+   NOTIFICATION DROPDOWN
+========================================================= */
+
+.notification-dropdown {
+    position: absolute;
+
+    top: calc(100% + 12px);
+    right: 0;
+
+    width: 380px;
+    max-width: calc(100vw - 30px);
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.18),
+        0 5px 12px rgba(0, 0, 0, 0.08);
+
+    overflow: hidden;
+
+    z-index: 10001;
+
+    animation: notificationDropdown 0.18s ease-out;
+}
+
+
+/* =========================================================
+   NOTIFICATION DROPDOWN ANIMATION
+========================================================= */
+
+@keyframes notificationDropdown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   NOTIFICATION HEADER
+========================================================= */
+
+.notification-header {
+    min-height: 58px;
+
+    padding: 0 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: #f8fafc;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.notification-header strong {
+    margin: 0;
+
+    color: #111827;
+
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.notification-header span {
+    color: #7c3aed;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    background: #f3e8ff;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   NOTIFICATION LIST
+========================================================= */
+
+.notification-list {
+    max-height: 430px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   NOTIFICATION SCROLLBAR
+========================================================= */
+
+.notification-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.notification-list::-webkit-scrollbar-track {
+    background: #f8fafc;
+}
+
+.notification-list::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+.notification-list::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+
+/* =========================================================
+   NOTIFICATION ITEM
+========================================================= */
+
+.notification-item {
+    position: relative;
+
+    width: 100%;
+
+    padding: 15px 18px 14px 18px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #f1f5f9;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.15s ease;
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+.notification-item:hover {
+    background: #f8fafc;
+}
+
+
+/* =========================================================
+   UNREAD NOTIFICATION
+========================================================= */
+
+.notification-item.unread {
+    background: #faf5ff;
+
+    border-left: 4px solid #7c3aed;
+
+    padding-left: 14px;
+}
+
+.notification-item.unread:hover {
+    background: #f3e8ff;
+}
+
+
+/* =========================================================
+   NOTIFICATION TITLE
+========================================================= */
+
+.notification-title {
+    margin: 0 0 6px 0;
+
+    color: #111827;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   NOTIFICATION MESSAGE
+========================================================= */
+
+.notification-message {
+    margin: 0 0 8px 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   NOTIFICATION TIME
+========================================================= */
+
+.notification-time {
+    margin: 0;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+
+    line-height: 1.3;
+}
+
+
+/* =========================================================
+   EMPTY NOTIFICATIONS
+========================================================= */
+
+.no-notifications {
+    min-height: 180px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 30px 20px;
+
+    color: #94a3b8;
+}
+
+.no-notifications div {
+    margin-bottom: 10px;
+
+    font-size: 32px;
+
+    opacity: 0.7;
+}
+
+.no-notifications p {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   DESKTOP LOGOUT
+========================================================= */
+
+.header-logout {
+    display: inline-flex;
+
+    flex: 0 0 auto;
+
+    min-height: 40px;
+
+    align-items: center;
+    justify-content: center;
+
+    margin: 0;
+    padding: 8px 15px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #6d28d9;
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.2;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.header-logout:hover {
+    background: #5b21b6;
+}
+
+.header-logout:active {
+    transform: translateY(1px);
+}
+
+
+/* =========================================================
+   MOBILE LOGOUT
+   Hidden on desktop
+========================================================= */
+
+.mobile-logout-link {
+    display: none;
+}
+
+
+/* =========================================================
+   HAMBURGER BUTTON
+========================================================= */
+
+.mobile-menu-button {
+    display: none;
+
+    flex: 0 0 auto;
+
+    width: 42px;
+    height: 42px;
+
+    margin: 0;
+    padding: 0;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    cursor: pointer;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-direction: column;
+
+    gap: 4px;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.mobile-menu-button:hover {
+    background: #f5f3ff;
+    border-color: #ddd6fe;
+}
+
+
+/* =========================================================
+   HAMBURGER LINES
+========================================================= */
+
+.mobile-menu-button span {
+    display: block;
+
+    width: 19px;
+    height: 2px;
+
+    background: #374151;
+
+    border-radius: 2px;
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+
+/* =========================================================
+   HAMBURGER OPEN STATE
+========================================================= */
+
+.mobile-menu-button.open span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+}
+
+.mobile-menu-button.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-button.open span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+.header-nav-link:focus-visible,
+.security-dropdown-button:focus-visible,
+.security-menu-link:focus-visible,
+.header-logout:focus-visible,
+.mobile-logout-link:focus-visible,
+.mobile-menu-button:focus-visible,
+.notification-button:focus-visible,
+.notification-item:focus-visible,
+.header-logo:focus-visible {
+    outline: 2px solid #6d28d9;
+    outline-offset: 2px;
+}
+
+
+/* =========================================================
+   SMALL LAPTOP
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .header-inner {
+        padding-left: 18px;
+        padding-right: 18px;
+        gap: 12px;
+    }
+
+    .header-nav {
+        gap: 2px;
+    }
+
+    .header-nav-link,
+    .security-dropdown-button {
+        padding-left: 9px;
+        padding-right: 9px;
+
+        font-size: 13px;
+    }
+
+    .header-logout {
+        padding-left: 11px;
+        padding-right: 11px;
+
+        font-size: 13px;
+    }
+
+    .logo-subtitle {
+        font-size: 12px;
+    }
+}
+
+
+/* =========================================================
+   TABLET / MOBILE
+   900px and below
 ========================================================= */
 
 @media (max-width: 900px) {
 
-    .main-header {
+    /* -------------------------------------------------------
+       HEADER
+    ------------------------------------------------------- */
 
-        padding: 0 24px;
+    .header-inner {
+        min-height: 64px;
 
-    }
-
-    .header-logo {
-
-        min-width: auto;
-
-        font-size: 23px;
-
-    }
-
-    .header-navigation {
-
-        margin-left: 15px;
-
-        gap: 3px;
-
-    }
-
-    .header-link {
-
-        padding: 0 12px;
-
-    }
-
-    .security-dropdown-button {
-
-        padding: 0 12px;
-
-    }
-
-}
-
-
-@media (max-width: 700px) {
-
-    .main-header {
-
-        height: auto;
-
-        min-height: 80px;
-
-        flex-wrap: wrap;
-
-        padding: 14px 20px;
+        padding-left: 16px;
+        padding-right: 16px;
 
         gap: 10px;
-
     }
 
+
+    /* -------------------------------------------------------
+       DESKTOP NAVIGATION HIDDEN
+    ------------------------------------------------------- */
+
+    .header-nav {
+        display: none;
+    }
+
+
+    /* -------------------------------------------------------
+       DESKTOP LOGOUT HIDDEN
+    ------------------------------------------------------- */
+
+    .header-logout {
+        display: none;
+    }
+
+
+    /* -------------------------------------------------------
+       HAMBURGER SHOWN
+    ------------------------------------------------------- */
+
+    .mobile-menu-button {
+        display: flex;
+    }
+
+
+    /* -------------------------------------------------------
+       LOGO
+    ------------------------------------------------------- */
+
     .header-logo {
+        font-size: 20px;
+        gap: 5px;
+    }
+
+    .logo-subtitle {
+        font-size: 12px;
+    }
+
+
+    /* -------------------------------------------------------
+       OPEN MOBILE NAVIGATION
+    ------------------------------------------------------- */
+
+    .header-nav.mobile-open {
+        display: flex;
+
+        position: absolute;
+
+        top: 100%;
+        left: 0;
+        right: 0;
+
+        width: 100%;
+        max-width: 100%;
+
+        margin: 0;
+
+        padding: 12px 16px;
+
+        background: #ffffff;
+
+        border-bottom: 1px solid #e5e7eb;
+
+        box-shadow:
+            0 8px 20px rgba(0, 0, 0, 0.08);
+
+        flex-direction: column;
+
+        align-items: stretch;
+        justify-content: flex-start;
+
+        gap: 4px;
+
+        z-index: 9998;
+
+        overflow: visible;
+    }
+
+
+    /* -------------------------------------------------------
+       MOBILE NAV LINKS
+    ------------------------------------------------------- */
+
+    .header-nav.mobile-open .header-nav-link {
+        width: 100%;
+
+        min-height: 44px;
+
+        justify-content: flex-start;
+
+        padding: 10px 13px;
+
+        border-radius: 8px;
+    }
+
+
+    /* -------------------------------------------------------
+       MOBILE SECURITY
+    ------------------------------------------------------- */
+
+    .header-nav.mobile-open .security-dropdown {
+        width: 100%;
+    }
+
+    .header-nav.mobile-open .security-dropdown-button {
+        width: 100%;
+
+        min-height: 44px;
+
+        justify-content: space-between;
+
+        padding: 10px 13px;
+    }
+
+
+    /* -------------------------------------------------------
+       MOBILE SECURITY MENU
+    ------------------------------------------------------- */
+
+    .header-nav.mobile-open .security-menu {
+        position: static;
+
+        width: 100%;
+        max-width: 100%;
+
+        margin-top: 4px;
+
+        padding: 5px;
+
+        box-shadow: none;
+
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+    }
+
+
+    /* -------------------------------------------------------
+       MOBILE SECURITY ITEMS
+    ------------------------------------------------------- */
+
+    .header-nav.mobile-open .security-menu-link {
+        width: 100%;
+
+        min-height: 42px;
+
+        padding: 9px 10px;
+    }
+
+
+    /* -------------------------------------------------------
+       MOBILE LOGOUT
+    ------------------------------------------------------- */
+
+    .header-nav.mobile-open .mobile-logout-link {
+        display: flex;
 
         width: 100%;
 
+        min-height: 44px;
+
+        align-items: center;
+        justify-content: flex-start;
+
+        margin-top: 6px;
+
+        padding: 10px 13px;
+
+        border: none;
+        border-radius: 8px;
+
+        background: #6d28d9;
+
+        color: #ffffff;
+
+        font-family: inherit;
+
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.2;
+
+        cursor: pointer;
     }
 
-    .header-navigation {
-
-        margin-left: 0;
-
-        flex-wrap: wrap;
-
-        height: auto;
-
+    .header-nav.mobile-open .mobile-logout-link:hover {
+        background: #5b21b6;
     }
 
-    .header-right {
 
-        margin-left: 0;
+    /* -------------------------------------------------------
+       MOBILE NOTIFICATION DROPDOWN
+    ------------------------------------------------------- */
 
+    .notification-dropdown {
+        position: fixed;
+
+        top: 70px;
+
+        left: 15px;
+        right: 15px;
+
+        width: auto;
+        max-width: none;
+
+        max-height: calc(100vh - 90px);
+
+        border-radius: 12px;
     }
 
+    .notification-list {
+        max-height: calc(100vh - 150px);
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   600px and below
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .header-inner {
+        min-height: 60px;
+
+        padding-left: 12px;
+        padding-right: 12px;
+
+        gap: 8px;
+    }
+
+
+    /* -------------------------------------------------------
+       MOBILE LOGO
+    ------------------------------------------------------- */
+
+    .header-logo {
+        font-size: 19px;
+        gap: 0;
+    }
+
+
+    /* -------------------------------------------------------
+       HIDE PASSWORD VAULT SUBTITLE
+    ------------------------------------------------------- */
+
+    .logo-subtitle {
+        display: none;
+    }
+
+
+    /* -------------------------------------------------------
+       HAMBURGER
+    ------------------------------------------------------- */
+
+    .mobile-menu-button {
+        width: 40px;
+        height: 40px;
+    }
+
+
+    /* -------------------------------------------------------
+       MOBILE MENU
+    ------------------------------------------------------- */
+
+    .header-nav.mobile-open {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+
+    /* -------------------------------------------------------
+       NOTIFICATION
+    ------------------------------------------------------- */
+
+    .notification-button {
+        width: 40px;
+        height: 40px;
+
+        font-size: 20px;
+    }
+
+    .notification-badge {
+        top: -2px;
+        right: -2px;
+    }
+
+    .notification-dropdown {
+        top: 68px;
+
+        left: 10px;
+        right: 10px;
+
+        width: auto;
+
+        border-radius: 12px;
+    }
+
+    .notification-list {
+        max-height: calc(100vh - 145px);
+    }
+
+    .notification-header {
+        min-height: 54px;
+
+        padding: 0 15px;
+    }
+
+    .notification-header strong {
+        font-size: 15px;
+    }
+
+    .notification-header span {
+        font-size: 11px;
+    }
+
+    .notification-item {
+        padding: 14px 15px;
+    }
+
+    .notification-item.unread {
+        padding-left: 11px;
+    }
+
+    .notification-title {
+        font-size: 13px;
+    }
+
+    .notification-message {
+        font-size: 12px;
+    }
+
+    .notification-time {
+        font-size: 10px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   400px and below
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .header-inner {
+        min-height: 58px;
+
+        padding-left: 10px;
+        padding-right: 10px;
+
+        gap: 7px;
+    }
+
+    .header-logo {
+        font-size: 18px;
+    }
+
+    .mobile-menu-button {
+        width: 38px;
+        height: 38px;
+    }
+
+    .mobile-menu-button span {
+        width: 18px;
+    }
+
+    .header-nav.mobile-open {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .notification-button {
+        width: 38px;
+        height: 38px;
+
+        font-size: 19px;
+    }
+
+    .notification-dropdown {
+        top: 64px;
+
+        left: 8px;
+        right: 8px;
+
+        border-radius: 10px;
+    }
+
+    .notification-item {
+        padding: 12px;
+    }
+
+    .notification-item.unread {
+        padding-left: 8px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+   350px and below
+========================================================= */
+
+@media (max-width: 350px) {
+
+    .header-inner {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .header-logo {
+        font-size: 17px;
+    }
+
+    .mobile-menu-button {
+        width: 36px;
+        height: 36px;
+    }
+
+    .notification-button {
+        width: 36px;
+        height: 36px;
+
+        font-size: 18px;
+    }
+
+    .mobile-menu-button span {
+        width: 17px;
+    }
+
+    .header-nav.mobile-open {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .notification-dropdown {
+        left: 6px;
+        right: 6px;
+    }
 }

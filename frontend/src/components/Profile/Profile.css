@@ -1,139 +1,109 @@
 .profile-page {
-
     min-height: 100vh;
-
     background: #ffffff;
+    width: 100%;
 }
-
 
 .profile-content {
-
-    min-height: calc(100vh - 76px);
-
+    min-height: calc(100vh - 68px);
     display: flex;
-
     justify-content: center;
-
     align-items: flex-start;
-
-    padding: 70px 20px;
+    padding: 50px 20px;
+    box-sizing: border-box;
 }
-
 
 .profile-card {
-
     width: 100%;
-
     max-width: 650px;
-
     padding: 45px;
-
     text-align: center;
-
     background: #ffffff;
-
     border: 1px solid #e5e7eb;
-
     border-radius: 20px;
-
-    box-shadow:
-        0 12px 35px rgba(76, 29, 149, 0.09);
+    box-shadow: 0 12px 35px rgba(76, 29, 149, 0.09);
+    box-sizing: border-box;
 }
 
-
 .profile-avatar {
-
     width: 80px;
     height: 80px;
-
     margin: 0 auto 20px;
-
     display: flex;
-
     align-items: center;
     justify-content: center;
-
     border-radius: 50%;
-
     background: #f3e8ff;
-
     font-size: 35px;
 }
 
-
 .profile-card h1 {
-
     margin-bottom: 8px;
-
     color: #4c1d95;
-
     font-size: 28px;
 }
 
-
 .profile-subtitle {
-
     margin-bottom: 35px;
-
     color: #6b7280;
 }
 
-
 .profile-details {
-
     text-align: left;
-
     border: 1px solid #e5e7eb;
-
     border-radius: 12px;
-
     overflow: hidden;
 }
 
-
 .profile-row {
-
-    min-height: 70px;
-
+    min-height: 65px;
     padding: 0 22px;
-
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
     gap: 20px;
-
     border-bottom: 1px solid #e5e7eb;
 }
 
-
 .profile-row:last-child {
-
     border-bottom: none;
 }
 
-
 .profile-row span {
-
     color: #6b7280;
-
     font-size: 14px;
+    flex-shrink: 0;
 }
-
 
 .profile-row strong {
-
     color: #374151;
-
     font-size: 15px;
-
-    word-break: break-word;
+    word-break: break-all;
 }
 
-
 .active-status {
-
     color: #15803d !important;
+}
+
+@media (max-width: 600px) {
+    .profile-content {
+        padding: 24px 14px;
+    }
+
+    .profile-card {
+        padding: 24px 16px;
+        border-radius: 14px;
+    }
+
+    .profile-card h1 {
+        font-size: 22px;
+    }
+
+    .profile-row {
+        padding: 14px 16px;
+        min-height: auto;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
 }

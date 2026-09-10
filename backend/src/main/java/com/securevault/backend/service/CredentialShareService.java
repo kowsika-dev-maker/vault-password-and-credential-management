@@ -23,14 +23,23 @@ public class CredentialShareService {
     private final CredentialRepository credentialRepository;
     private final UserRepository userRepository;
 
+    private final NotificationService notificationService;
+
+
+    // =========================================================
+    // CONSTRUCTOR
+    // =========================================================
+
     public CredentialShareService(
             CredentialShareRepository credentialShareRepository,
             CredentialRepository credentialRepository,
-            UserRepository userRepository
+            UserRepository userRepository,
+            NotificationService notificationService
     ) {
         this.credentialShareRepository = credentialShareRepository;
         this.credentialRepository = credentialRepository;
         this.userRepository = userRepository;
+        this.notificationService = notificationService;
     }
 
 
@@ -110,6 +119,10 @@ public class CredentialShareService {
         }
 
 
+        // =====================================================
+        // CREATE SHARE
+        // =====================================================
+
         CredentialShare share =
                 new CredentialShare();
 
@@ -119,6 +132,24 @@ public class CredentialShareService {
         share.setPermission(permission);
 
         credentialShareRepository.save(share);
+
+
+        // =====================================================
+        // CREATE NOTIFICATION FOR RECIPIENT
+        // =====================================================
+
+        notificationService.createNotification(
+                recipient.getId(),
+                "CREDENTIAL_SHARED",
+                "Credential Shared",
+                "The credential for "
+                        + credential.getWebsite()
+                        + " was shared with your account by "
+                        + owner.getEmail()
+                        + " with "
+                        + permission
+                        + " permission."
+        );
 
 
         return "Credential Shared Successfully";

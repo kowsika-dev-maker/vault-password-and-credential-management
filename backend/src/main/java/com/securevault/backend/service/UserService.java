@@ -28,6 +28,10 @@ public class UserService {
 
     private final AuditLogService auditLogService;
 
+    private final NotificationService notificationService;
+
+    private final EmailService emailService;
+
     private final BCryptPasswordEncoder passwordEncoder =
             new BCryptPasswordEncoder();
 
@@ -41,7 +45,9 @@ public class UserService {
             LoginActivityService loginActivityService,
             SuspiciousActivityService suspiciousActivityService,
             SecurityAlertService securityAlertService,
-            AuditLogService auditLogService) {
+            AuditLogService auditLogService,
+            NotificationService notificationService,
+            EmailService emailService) {
 
         this.userRepository = userRepository;
 
@@ -56,6 +62,12 @@ public class UserService {
 
         this.auditLogService =
                 auditLogService;
+
+        this.notificationService =
+                notificationService;
+
+        this.emailService =
+                emailService;
     }
 
 
@@ -122,7 +134,10 @@ public class UserService {
 
         if (user == null) {
 
-            // Login activity
+            // -------------------------------------------------
+            // Record failed login activity
+            // -------------------------------------------------
+
             loginActivityService.recordLogin(
                     email,
                     "FAILED",
@@ -130,7 +145,10 @@ public class UserService {
             );
 
 
-            // Audit log
+            // -------------------------------------------------
+            // Create audit log
+            // -------------------------------------------------
+
             auditLogService.createAuditLog(
                     email,
                     "LOGIN_FAILED",
@@ -231,6 +249,19 @@ public class UserService {
 
 
                 // -------------------------------------------------
+                // Create security notification
+                // -------------------------------------------------
+
+                notificationService.createNotification(
+                        user.getId(),
+                        "MULTIPLE_FAILED_LOGINS",
+                        "Security Alert",
+                        "Multiple failed login attempts were detected for your SecureVault account on "
+                                + LocalDateTime.now()
+                );
+
+
+                // -------------------------------------------------
                 // Return security response
                 // -------------------------------------------------
 
@@ -274,6 +305,21 @@ public class UserService {
         );
 
 
+        // -----------------------------------------------------
+        // CREATE LOGIN NOTIFICATION
+        // -----------------------------------------------------
+
+        notificationService.createNotification(
+                user.getId(),
+                "LOGIN_SUCCESS",
+                "Successful Login",
+                "A successful login was detected for account "
+                        + user.getEmail()
+                        + " on "
+                        + LocalDateTime.now()
+        );
+
+
         // =====================================================
         // GENERATE JWT
         // =====================================================
@@ -312,13 +358,19 @@ public class UserService {
                         .orElse(null);
 
 
+        // -----------------------------------------------------
+        // USER NOT FOUND
+        // -----------------------------------------------------
+
         if (user == null) {
 
             return "Email not found";
         }
 
 
+        // -----------------------------------------------------
         // Generate 6-digit OTP
+        // -----------------------------------------------------
 
         String otp =
                 String.valueOf(
@@ -326,6 +378,10 @@ public class UserService {
                                 new Random().nextInt(900000)
                 );
 
+
+        // -----------------------------------------------------
+        // Save OTP
+        // -----------------------------------------------------
 
         user.setOtp(otp);
 
@@ -338,19 +394,27 @@ public class UserService {
         userRepository.save(user);
 
 
-        // Display OTP in backend console
-        // for development/testing
+        // -----------------------------------------------------
+        // Send OTP through email
+        // -----------------------------------------------------
 
-        System.out.println(
-                "=================================="
-        );
+        String emailSubject =
+                "SecureVault - Password Reset OTP";
 
-        System.out.println(
-                "OTP : " + otp
-        );
+        String emailMessage =
+                "Hello " + user.getName() + ",\n\n"
+                        + "We received a request to reset your SecureVault password.\n\n"
+                        + "Your One-Time Password (OTP) is:\n\n"
+                        + otp + "\n\n"
+                        + "This OTP is valid for 5 minutes.\n\n"
+                        + "If you did not request a password reset, please ignore this email and secure your account.\n\n"
+                        + "SecureVault Security Team";
 
-        System.out.println(
-                "=================================="
+
+        emailService.sendEmail(
+                user.getEmail(),
+                emailSubject,
+                emailMessage
         );
 
 
@@ -418,7 +482,9 @@ public class UserService {
         );
 
 
+        // -----------------------------------------------------
         // Clear OTP after successful reset
+        // -----------------------------------------------------
 
         user.setOtp(null);
 

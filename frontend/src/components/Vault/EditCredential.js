@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import API from "../../services/api";
 import "./Vault.css";
+import Header from "../Common/Header";
 
 import PasswordGenerator from "../PasswordManagement/PasswordGenerator";
 import PasswordStrength from "../PasswordManagement/PasswordStrength";
@@ -131,7 +132,11 @@ function EditCredential() {
 
     return (
 
-        <div className="vault-container">
+        <div className="vault-page">
+
+            <Header />
+
+            <div className="vault-container">
 
             <div className="vault-box">
 
@@ -194,7 +199,9 @@ function EditCredential() {
 
         </div>
 
-    );
+    </div>
+
+);
 
 }
 

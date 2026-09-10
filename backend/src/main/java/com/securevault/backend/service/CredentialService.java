@@ -11,6 +11,7 @@ import com.securevault.backend.repository.UserRepository;
 import com.securevault.backend.util.AESUtil;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -383,6 +384,7 @@ public class CredentialService {
     // VIEW_ONLY        -> denied
     // =========================================================
 
+    @Transactional
     public String deleteCredential(
             Long id,
             String requesterEmail) {
@@ -423,6 +425,17 @@ public class CredentialService {
                 && credential.getUser()
                 .getId()
                 .equals(requester.getId())) {
+
+            // -------------------------------------------------
+            // DELETE RELATED SHARES FIRST
+            // -------------------------------------------------
+
+            credentialShareRepository.deleteByCredentialId(id);
+
+
+            // -------------------------------------------------
+            // DELETE CREDENTIAL
+            // -------------------------------------------------
 
             credentialRepository.delete(
                     credential
@@ -472,10 +485,25 @@ public class CredentialService {
 
         if ("FULL_MANAGEMENT".equals(permission)) {
 
+            // -------------------------------------------------
+            // DELETE ALL SHARES FIRST
+            // -------------------------------------------------
+
+            credentialShareRepository.deleteByCredentialId(id);
+
+
+            // -------------------------------------------------
+            // DELETE CREDENTIAL
+            // -------------------------------------------------
+
             credentialRepository.delete(
                     credential
             );
 
+
+            // =================================================
+            // AUDIT LOG
+            // =================================================
 
             auditLogService.createAuditLog(
                     requesterEmail,
@@ -489,10 +517,18 @@ public class CredentialService {
         }
 
 
+        // =====================================================
+        // EDIT
+        // =====================================================
+
         if ("EDIT".equals(permission)) {
             return "Edit permission does not allow deletion";
         }
 
+
+        // =====================================================
+        // VIEW ONLY
+        // =====================================================
 
         return "You have View Only permission";
     }
@@ -502,6 +538,7 @@ public class CredentialService {
     // OLD DELETE METHOD
     // =========================================================
 
+    @Transactional
     public String deleteCredential(Long id) {
 
         Credential credential =
@@ -513,9 +550,16 @@ public class CredentialService {
             return "Credential not found";
         }
 
+
+        // Delete related shares first
+        credentialShareRepository.deleteByCredentialId(id);
+
+
+        // Delete credential
         credentialRepository.delete(
                 credential
         );
+
 
         return "Credential Deleted Successfully";
     }

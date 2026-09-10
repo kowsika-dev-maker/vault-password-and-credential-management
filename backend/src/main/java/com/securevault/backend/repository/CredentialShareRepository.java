@@ -22,4 +22,7 @@ public interface CredentialShareRepository
             Long credentialId,
             Long recipientId
     );
+
+    // Delete all shares associated with a credential
+    void deleteByCredentialId(Long credentialId);
 }
