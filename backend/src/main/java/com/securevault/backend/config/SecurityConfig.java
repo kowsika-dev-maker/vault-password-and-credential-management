@@ -30,6 +30,10 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    /*
+     * CORS configuration is handled by CorsConfig.java.
+     * This bean is kept for compatibility with the existing project.
+     */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
 
@@ -66,9 +70,10 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
 
-                .cors(cors -> cors.configurationSource(
-                        corsConfigurationSource()
-                ))
+                /*
+                 * CORS is handled by CorsFilter before Spring Security.
+                 */
+                .cors(cors -> {})
 
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(
