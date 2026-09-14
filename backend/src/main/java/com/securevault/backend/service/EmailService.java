@@ -36,6 +36,7 @@ public class EmailService {
                     .to(to)
                     .subject(subject)
                     .text(message)
+                    .text(message)
                     .build();
 
             resend.emails().send(params);
