@@ -1,34 +1,55 @@
 package com.securevault.backend.service;
 
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
+import com.resend.Resend;
+import com.resend.core.exception.ResendException;
+import com.resend.services.emails.model.CreateEmailOptions;
 import org.springframework.stereotype.Service;
 
 @Service
 public class EmailService {
 
-    private final JavaMailSender mailSender;
+    private final Resend resend;
 
-    public EmailService(JavaMailSender mailSender) {
-        this.mailSender = mailSender;
+    public EmailService() {
+
+        String apiKey = System.getenv("RESEND_API_KEY");
+
+        if (apiKey == null || apiKey.isBlank()) {
+            throw new IllegalStateException(
+                    "RESEND_API_KEY environment variable is not set"
+            );
+        }
+
+        this.resend = new Resend(apiKey);
     }
 
     public void sendEmail(String to, String subject, String message) {
 
         try {
-            SimpleMailMessage mail = new SimpleMailMessage();
 
-            mail.setTo(to);
-            mail.setSubject(subject);
-            mail.setText(message);
+            System.out.println("EMAIL SERVICE STARTED");
+            System.out.println("EMAIL TO: " + to);
+            System.out.println("EMAIL SUBJECT: " + subject);
 
-            mailSender.send(mail);
+            CreateEmailOptions params = CreateEmailOptions.builder()
+                    .from("onboarding@resend.dev")
+                    .to(to)
+                    .subject(subject)
+                    .text(message)
+                    .build();
 
-            System.out.println("Email sent successfully to: " + to);
+            resend.emails().send(params);
 
-        } catch (Exception e) {
+            System.out.println("EMAIL SENT SUCCESSFULLY TO: " + to);
 
-            System.out.println("Failed to send email to: " + to);
+        } catch (ResendException e) {
+
+            System.err.println("========== RESEND EMAIL ERROR ==========");
+            System.err.println("EMAIL TO: " + to);
+            System.err.println("ERROR MESSAGE: " + e.getMessage());
+            System.err.println("ERROR TYPE: " + e.getClass().getName());
+            System.err.println("========================================");
+
             e.printStackTrace();
         }
     }

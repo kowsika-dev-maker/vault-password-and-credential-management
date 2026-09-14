@@ -320,6 +320,28 @@ public class UserService {
         );
 
 
+        // -----------------------------------------------------
+        // SEND SUCCESSFUL LOGIN EMAIL
+        // -----------------------------------------------------
+
+        String loginEmailSubject =
+                "SecureVault - Successful Login";
+
+        String loginEmailMessage =
+                "Hello " + user.getName() + ",\n\n"
+                        + "A successful login was detected for your SecureVault account.\n\n"
+                        + "Account: " + user.getEmail() + "\n"
+                        + "Time: " + LocalDateTime.now() + "\n\n"
+                        + "If this was not you, please secure your account immediately.\n\n"
+                        + "SecureVault Security Team";
+
+        emailService.sendEmail(
+                user.getEmail(),
+                loginEmailSubject,
+                loginEmailMessage
+        );
+
+
         // =====================================================
         // GENERATE JWT
         // =====================================================
