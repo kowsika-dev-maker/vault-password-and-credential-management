@@ -19,7 +19,8 @@ public class CorsConfig {
         configuration.setAllowedOrigins(List.of(
                 "http://localhost:3000",
                 "http://localhost:3001",
-                "https://dc5e00.netlify.app"
+                "https://dc5e00.netlify.app",
+                "https://stunning-malabi-dc5e00.netlify.app"
         ));
 
         configuration.setAllowedMethods(List.of(
